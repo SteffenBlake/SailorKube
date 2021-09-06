@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: gitea-app
+  namespace: gitea-system
+spec:
+  serviceName: gitea-app-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitea-app
+  template:
+    metadata:
+      labels:
+        app: gitea-app
+    spec:
+      containers:
+        - name: gitea
+          image: gitea/gitea:1.15.0
+          ports:
+            - containerPort: 3000
+            - containerPort: 22
+          volumeMounts:
+            - name: gitea-data-pvc
+              mountPath: /data
+            - name: gitea-timezone-host
+              mountPath: /etc/timezone
+            - name: gitea-localtime-host
+              mountPath: /etc/localtime
+          envFrom:
+            - secretRef:
+                name: gitea-secrets
+      volumes:
+      - name: gitea-data-pvc
+        persistentVolumeClaim:
+          claimName: gitea-data-pvc
+      - name: gitea-timezone-host
+        hostPath:
+          path: /etc/timezone
+          type: File
+      - name: gitea-localtime-host
+        hostPath:
+          path: /etc/localtime
+          type: File

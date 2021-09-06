@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cerberus-service
+  namespace: cerberus-system
+spec:
+  clusterIP: None
+  ports:
+  - protocol: TCP
+    port: 80
