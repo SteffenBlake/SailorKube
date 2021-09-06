@@ -32,6 +32,8 @@ spec:
           envFrom:
             - secretRef:
                 name: gitea-secrets
+            - configMapRef:
+                name: gitea-config
       volumes:
       - name: gitea-data-pvc
         persistentVolumeClaim:
