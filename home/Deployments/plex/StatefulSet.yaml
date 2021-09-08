@@ -26,16 +26,16 @@ spec:
           volumeMounts:
             - name: plex-config-pvc
               mountPath: /config
-              subPath: plex/config
+              subPath: programs/plex/config
             - name: plex-transcode-pvc
               mountPath: /transcode
-              subPath: plex/transcode
+              subPath: programs/plex/transcode
             - name: plex-data-pvc
               mountPath: /data
-              subPath: plex/data
+              subPath: programs/plex/data
             - name: plex-library-pvc
               mountPath: /library
-              subPath: plex/library
+              subPath: Plex
           envFrom:
             - secretRef:
                 name: plex-secrets

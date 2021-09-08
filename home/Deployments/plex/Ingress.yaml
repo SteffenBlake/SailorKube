@@ -7,7 +7,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: plex.local
+  - host: plex.media
     http:
       paths:
       - path: /
