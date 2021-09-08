@@ -16,24 +16,19 @@ spec:
     spec:
       containers:
         - name: samba
-          image: stanback/alpine-samba
+          image: steffenblake/alpine-samba:1.0.0
           ports:
             - containerPort: 445
           volumeMounts:
-            - name: plex-data-pvc
-              mountPath: /share
+            - name: plex-library-pvc
+              mountPath: /share/plex
             - name: plex-samba-config-volume
               mountPath: /etc/samba/smb.conf
               subPath: smb.conf
-          envFrom:
-            - secretRef:
-                name: plex-secrets
-            - configMapRef:
-                name: plex-config
       volumes:
-      - name: plex-data-pvc
+      - name: plex-library-pvc
         persistentVolumeClaim:
-          claimName: plex-data-pvc
+          claimName: plex-library-pvc
       - name: plex-samba-config-volume
         configMap:
           name: plex-samba-config

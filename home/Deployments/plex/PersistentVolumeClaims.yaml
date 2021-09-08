@@ -43,3 +43,19 @@ spec:
   resources:
     requests:
       storage: 1Ti
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: plex-app
+  name: plex-library-pvc
+  namespace: plex-system
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Ti

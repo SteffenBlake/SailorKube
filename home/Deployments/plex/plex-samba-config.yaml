@@ -22,9 +22,11 @@ data:
       ;name resolve order = hosts
       ;log level = 3
     [Shared]
-      path = /share
       comment = Shared Folder
+      path = /share
+      writeable = true
       browseable = yes
-      read only = yes
-      write list = carol
+      public = yes
+      read only = no
       guest ok = yes
+      directory mask = 777

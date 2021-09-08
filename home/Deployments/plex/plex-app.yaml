@@ -30,6 +30,8 @@ spec:
               mountPath: /transcode
             - name: plex-data-pvc
               mountPath: /data
+            - name: plex-library-pvc
+              mountPath: /library
           envFrom:
             - secretRef:
                 name: plex-secrets
@@ -45,3 +47,6 @@ spec:
       - name: plex-data-pvc
         persistentVolumeClaim:
           claimName: plex-data-pvc
+      - name: plex-library-pvc
+        persistentVolumeClaim:
+          claimName: plex-library-pvc
