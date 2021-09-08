@@ -21,6 +21,7 @@ spec:
           volumeMounts:
             - name: postgresql-mount
               mountPath: /data
+              subPath: programs/postgres
           env:
             - name: POSTGRES_USER
               valueFrom:
@@ -34,7 +35,7 @@ spec:
                   key: POSTGRES_PASSWORD
             - name: PGDATA
               value: /data/pgdata
-              subPath: programs/postgres
+      volumes:
       - name: postgresql-mount
         persistentVolumeClaim:
           claimName: postgresql-pvc

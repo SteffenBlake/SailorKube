@@ -26,9 +26,11 @@ spec:
               subPath: programs/gitea
             - name: gitea-timezone-host
               mountPath: /etc/timezone
+              subPath: timezone
               readOnly: true
             - name: gitea-localtime-host
               mountPath: /etc/localtime
+              subPath: localtime
               readOnly: true
           envFrom:
             - secretRef:
