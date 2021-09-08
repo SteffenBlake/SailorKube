@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: plex-app
+  namespace: plex-system
+spec:
+  serviceName: plex-app-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: plex-app
+  template:
+    metadata:
+      labels:
+        app: plex-app
+    spec:
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "1"
+      containers:
+        - name: plex
+          image: plexinc/pms-docker:1.24.1.4931-1a38e63c6
+          ports:
+            - containerPort: 32400
+          volumeMounts:
+            - name: plex-config-pvc
+              mountPath: /config
+            - name: plex-transcode-pvc
+              mountPath: /transcode
+            - name: plex-data-pvc
+              mountPath: /data
+          envFrom:
+            - secretRef:
+                name: plex-secrets
+            - configMapRef:
+                name: plex-config
+      volumes:
+      - name: plex-config-pvc
+        persistentVolumeClaim:
+          claimName: plex-config-pvc
+      - name: plex-transcode-pvc
+        persistentVolumeClaim:
+          claimName: plex-transcode-pvc
+      - name: plex-data-pvc
+        persistentVolumeClaim:
+          claimName: plex-data-pvc
