@@ -11,3 +11,28 @@ spec:
   ports:
     - port: 32400
       targetPort: 32400
+      protocol: TCP
+    - port: 3005
+      targetPort: 3005
+      protocol: TCP
+    - port: 8324
+      targetPort: 8324
+      protocol: TCP
+    - port: 32469
+      targetPort: 32469
+      protocol: TCP
+    - port: 1900
+      targetPort: 1900
+      protocol: UDP
+    - port: 32410
+      targetPort: 32410
+      protocol: UDP
+    - port: 32412
+      targetPort: 32412
+      protocol: UDP
+    - port: 32413
+      targetPort: 32413
+      protocol: UDP
+    - port: 32414
+      targetPort: 32414
+      protocol: UDP
