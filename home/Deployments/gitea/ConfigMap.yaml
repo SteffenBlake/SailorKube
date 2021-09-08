@@ -8,4 +8,5 @@ data:
   GITEA__database__HOST: 192.168.0.251:5432
   GITEA__database__NAME: giteadb
   GITEA__database__USER: gitea
-  GITEA__service__DISABLE_REGISTRATION: true
+  GITEA__service__DISABLE_REGISTRATION: "true"
+  

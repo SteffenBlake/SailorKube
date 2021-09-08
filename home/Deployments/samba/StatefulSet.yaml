@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: plex-samba-app
+  name: samba-app
   namespace: samba-system
 spec:
   serviceName: samba-app-svc

@@ -5,4 +5,4 @@ metadata:
   name: plex-config
 data:
   TZ: "Canada/Mountain"
-  ADVERTISE_IP: "http://plex.local"
+  ADVERTISE_IP: "http://plex.home"
