@@ -22,31 +22,31 @@ spec:
         - name: plex
           image: plexinc/pms-docker:1.24.1.4931-1a38e63c6
           ports:
-            - name: PMS
+            - name: pms
               containerPort: 32400
               protocol: TCP
-            - name: MysteryPort
+            - name: mystery-port
               containerPort: 3005
               protocol: TCP
-            - name: RokuApparantly
+            - name: roku-apparantly
               containerPort: 8324
               protocol: TCP
-            - name: DLNA1
+            - name: dlna1
               containerPort: 32469
               protocol: TCP
-            - name: DLNA2
+            - name: dlna2
               containerPort: 1900
               protocol: UDP
-            - name: GDM1
+            - name: gdm1
               containerPort: 32410
               protocol: UDP
-            - name: GDM2
+            - name: gdm2
               containerPort: 32412
               protocol: UDP
-            - name: GDM3
+            - name: gdm3
               containerPort: 32413
               protocol: UDP
-            - name: GDM4
+            - name: gdm4
               containerPort: 32414
               protocol: UDP
           volumeMounts:
