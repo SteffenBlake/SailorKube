@@ -23,6 +23,7 @@ spec:
           volumeMounts:
             - name: gitea-data-pvc
               mountPath: /data
+              subPath: gitea
             - name: gitea-timezone-host
               mountPath: /etc/timezone
               readOnly: true

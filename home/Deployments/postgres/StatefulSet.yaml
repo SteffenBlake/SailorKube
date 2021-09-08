@@ -34,7 +34,7 @@ spec:
                   key: POSTGRES_PASSWORD
             - name: PGDATA
               value: /data/pgdata
-      volumes:
+              subPath: postgres
       - name: postgresql-mount
         persistentVolumeClaim:
           claimName: postgresql-pvc

@@ -45,7 +45,7 @@ metadata:
   annotations:
     storageclass.kubernetes.io/is-default-class: "true"
 provisioner: com.tuxera.csi.moosefs
-reclaimPolicy: Retain
+#reclaimPolicy: Retain
 ---
 apiVersion: v1
 kind: ServiceAccount

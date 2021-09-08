@@ -2,17 +2,17 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: plex-samba-app
-  namespace: plex-system
+  namespace: samba-system
 spec:
-  serviceName: plex-samba-app-svc
+  serviceName: samba-app-svc
   replicas: 1
   selector:
     matchLabels:
-      app: plex-samba-app
+      app: samba-app
   template:
     metadata:
       labels:
-        app: plex-samba-app
+        app: samba-app
     spec:
       containers:
         - name: samba
@@ -20,15 +20,15 @@ spec:
           ports:
             - containerPort: 445
           volumeMounts:
-            - name: plex-library-pvc
-              mountPath: /share/plex
-            - name: plex-samba-config-volume
+            - name: samba-pvc
+              mountPath: /share
+            - name: samba-config-volume
               mountPath: /etc/samba/smb.conf
               subPath: smb.conf
       volumes:
-      - name: plex-library-pvc
+      - name: samba-pvc
         persistentVolumeClaim:
-          claimName: plex-library-pvc
-      - name: plex-samba-config-volume
+          claimName: samba-pvc
+      - name: samba-config-volume
         configMap:
-          name: plex-samba-config
+          name: samba-config
