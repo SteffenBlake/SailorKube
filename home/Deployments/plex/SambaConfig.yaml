@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: plex-system
+  name: plex-samba-config
+data:
+  smb.conf: |
+    [global]
+      workgroup = WORKGROUP
+      server string = %h server (Samba, Alpine)
+      security = user
+      map to guest = Bad User
+      encrypt passwords = yes
+      load printers = no
+      printing = bsd
+      printcap name = /dev/null
+      disable spoolss = yes
+      disable netbios = yes
+      server role = standalone
+      server services = -dns, -nbt
+      smb ports = 445
+      ;name resolve order = hosts
+      ;log level = 3
+    [Shared]
+      path = /share
+      comment = Shared Folder
+      browseable = yes
+      read only = yes
+      write list = carol
+      guest ok = yes
