@@ -20,10 +20,10 @@ spec:
           image: ghcr.io/linuxserver/qbittorrent
           ports:
             - containerPort: 6881
-              name: udp-connection-port 
+              name: udp-connect
               protocol: UDP
             - containerPort: 6881
-              name: tcp-connection-port
+              name: tcp-connect
               protocol: TCP
             - containerPort: 8080
               name: web

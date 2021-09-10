@@ -8,10 +8,10 @@ spec:
     app: qbittorrent-app
   ports:
     - port: 6881
-      name: udp-connection-port 
+      name: udp-connect
       protocol: UDP
     - port: 6881
-      name: tcp-connection-port
+      name: tcp-connect
       protocol: TCP
     - port: 8080
       name: web
