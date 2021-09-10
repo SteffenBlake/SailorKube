@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: qbittorent-config-pvc
-  namespace: qbittorent-system
+  name: qbittorrent-config-pvc
+  namespace: qbittorrent-system
   labels:
-    app: qbittorent-app
+    app: qbittorrent-app
 spec:
   accessModes:
     - ReadWriteMany
@@ -18,9 +18,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
-    app: qbittorent-app
-  name: qbittorent-downloads-pvc
-  namespace: qbittorent-system
+    app: qbittorrent-app
+  name: qbittorrent-downloads-pvc
+  namespace: qbittorrent-system
 spec:
   accessModes:
     - ReadWriteMany

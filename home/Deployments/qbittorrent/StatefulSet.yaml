@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: qbittorent-app
-  namespace: qbittorent-system
+  name: qbittorrent-app
+  namespace: qbittorrent-system
 
 spec:
-  serviceName: qbittorent-app-service
+  serviceName: qbittorrent-app-service
   selector:
     matchLabels:
-      app: qbittorent-app
+      app: qbittorrent-app
   replicas: 1
   template:
     metadata:
       labels:
-        app: qbittorent-app
+        app: qbittorrent-app
     spec:
       containers:
-        - name: qbittorent
+        - name: qbittorrent
           image: ghcr.io/linuxserver/qbittorrent
           ports:
             - containerPort: 6881
@@ -29,19 +29,19 @@ spec:
               name: web
               protocol: TCP
           volumeMounts:
-            - name: qbittorent-config-mount
+            - name: qbittorrent-config-mount
               mountPath: /config
-              subPath: programs/qbittorent
-            - name: qbittorent-downloads-mount
+              subPath: programs/qbittorrent
+            - name: qbittorrent-downloads-mount
               mountPath: /downloads
               subPath: NAS
-          env:
+          envFrom:
             - configMapRef:
-                name: qbittorent-config
+                name: qbittorrent-config
       volumes:
-      - name: qbittorent-config-mount
+      - name: qbittorrent-config-mount
         persistentVolumeClaim:
-          claimName: qbittorent-config-pvc
-      - name: qbittorent-downloads-mount
+          claimName: qbittorrent-config-pvc
+      - name: qbittorrent-downloads-mount
         persistentVolumeClaim:
-          claimName: qbittorent-downloads-pvc
+          claimName: qbittorrent-downloads-pvc
