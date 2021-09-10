@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: qbittorrent-svc
+  namespace: qbittorrent-system
+spec:
+  selector:
+    app: qbittorrent-app
+  ports:
+    - port: 6881
+      name: udp-connection-port 
+      protocol: UDP
+    - port: 6881
+      name: tcp-connection-port
+      protocol: TCP
+    - port: 8080
+      name: web
+      protocol: TCP

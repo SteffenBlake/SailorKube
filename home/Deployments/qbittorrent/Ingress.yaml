@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: qbittorent-ingress
+  namespace: qbittorent-system
+  annotations:
+    kubernetes.io/ingress.class: nginx-internal
+spec:
+  rules:
+  - host: tor.home
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: qbittorent-svc
+            port:
+              number: 8080
