@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   namespace: nextcloud-system
   name: nextcloud-config
-data: POSTGRES_DB
+data:
   POSTGRES_HOST: 192.168.0.251:5432
   POSTGRES_DB: nextclouddb
   POSTGRES_USER: nextcloud
