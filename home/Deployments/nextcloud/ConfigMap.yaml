@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: nextcloud-system
+  name: nextcloud-config
+data: POSTGRES_DB
+  POSTGRES_HOST: 192.168.0.251:5432
+  POSTGRES_DB: nextclouddb
+  POSTGRES_USER: nextcloud
+  TRUSTED_PROXIES: "cloud.home www.cloud.home cloud.heyit.works"
+  NEXTCLOUD_TRUSTED_DOMAINS: "cloud.home www.cloud.home cloud.heyit.works"
