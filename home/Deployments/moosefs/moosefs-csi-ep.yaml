@@ -44,7 +44,7 @@ metadata:
   namespace: kube-system
   annotations:
     storageclass.kubernetes.io/is-default-class: "true"
-provisioner: com.tuxera.csi.moosefs
+provisioner: moosefs-csi-driver
 #reclaimPolicy: Retain
 ---
 apiVersion: v1
@@ -250,9 +250,9 @@ spec:
       containers:
         # provisioner
         - name: csi-provisioner
-          image: quay.io/k8scsi/csi-provisioner:v1.0.1
+          image: quay.io/k8scsi/csi-provisioner:v1.6.1
           args:
-            - "--provisioner=com.tuxera.csi.moosefs"
+          # - "--provisioner=moosefs-csi-driver"
             - "--csi-address=$(ADDRESS)"
             - "--v=5"
           env:
@@ -290,7 +290,7 @@ spec:
               mountPath: /var/lib/csi/sockets/pluginproxy/
         # Moosefs Plugin
         - name: moosefs-csi-plugin
-          image: docker.io/steffenblake/moosefs-csi-plugin:0.0.9.2
+          image: docker.io/steffenblake/moosefs-csi-plugin:1.0.1
           args :
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--topology=$(MFS_TOPOLOGY)"
@@ -339,7 +339,7 @@ spec:
             - name: ADDRESS
               value: /csi/csi.sock
             - name: DRIVER_REG_SOCK_PATH
-              value: /var/lib/kubelet/plugins/com.tuxera.csi.moosefs/csi.sock              
+              value: /var/lib/kubelet/plugins/moosefs-csi-driver/csi.sock              
             - name: KUBE_NODE_NAME
               valueFrom:
                 fieldRef:
@@ -355,7 +355,7 @@ spec:
             capabilities:
               add: ["SYS_ADMIN"]
             allowPrivilegeEscalation: true
-          image: docker.io/steffenblake/moosefs-csi-plugin:0.0.9.2
+          image: docker.io/steffenblake/moosefs-csi-plugin:1.0.1
           args :
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--topology=$(MFS_TOPOLOGY)"
@@ -383,7 +383,7 @@ spec:
             type: DirectoryOrCreate
         - name: plugin-dir
           hostPath:
-            path: /var/lib/kubelet/plugins/com.tuxera.csi.moosefs
+            path: /var/lib/kubelet/plugins/moosefs-csi-driver
             type: DirectoryOrCreate
         - name: pods-mount-dir
           hostPath:
