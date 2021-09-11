@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: passbolt-system
+  name: passbolt-db-config
+data:
+  MARIADB_DATABASE: "passboltdb"
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: passbolt-system
+  name: passbolt-config
+data:
+  DATASOURCES_DEFAULT_HOST: "localhost:3306"
+  DATASOURCES_DEFAULT_DATABASE: "passboltdb"
+  APP_FULL_BASE_URL: "https://pass.heyit.works"
+  EMAIL_DEFAULT_FROM: "no-reply@pass.heyit.works"
+  EMAIL_TRANSPORT_DEFAULT_USERNAME: "no-reply@pass.heyit.works"
+  EMAIL_TRANSPORT_DEFAULT_HOST: "smtp.mailgun.org"
+  EMAIL_TRANSPORT_DEFAULT_PORT: "587"
