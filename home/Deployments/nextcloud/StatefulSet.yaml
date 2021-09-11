@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nextcloud-app
+  namespace: nextcloud-system
+spec:
+  serviceName: nextcloud-app-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nextcloud-app
+  template:
+    metadata:
+      labels:
+        app: nextcloud-app
+    spec:
+      containers:
+        - name: nextcloud
+          image: nextcloud:stable-apache
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nextcloud-web-mount
+              mountPath: /var/www/html
+              subPath: programs/nextcloud
+          envFrom:
+            - secretRef:
+                name: nextcloud-secrets
+            - configMapRef:
+                name: nextcloud-config
+      volumes:
+      - name: nextcloud-web-mount
+        persistentVolumeClaim:
+          claimName: nextcloud-web-pvc
