@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: passbolt-app
+  name: passbolt-db-app
   namespace: passbolt-system
 spec:
-  serviceName: passbolt-app-svc
+  serviceName: passbolt-db-app-svc
   replicas: 1
   selector:
     matchLabels:
-      app: passbolt-app
+      app: passbolt-db-app
   template:
     metadata:
       labels:
-        app: passbolt-app
+        app: passbolt-db-app
     spec:
       containers:
         - name: mariadb
@@ -28,6 +28,30 @@ spec:
                 name: passbolt-db-secrets
             - configMapRef:
                 name: passbolt-db-config
+      volumes:
+      - name: passbolt-db-mount
+        persistentVolumeClaim:
+          claimName: passbolt-db-pvc
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: passbolt-app
+  namespace: passbolt-system
+spec:
+  serviceName: passbolt-app-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: passbolt-app
+  template:
+    metadata:
+      labels:
+        app: passbolt-app
+    spec:
+      containers:
         - name: passbolt
           image: passbolt:stable-apache
           ports:
@@ -37,7 +61,3 @@ spec:
                 name: passbolt-secrets
             - configMapRef:
                 name: passbolt-config
-      volumes:
-      - name: passbolt-db-mount
-        persistentVolumeClaim:
-          claimName: passbolt-db-pvc
