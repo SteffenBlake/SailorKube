@@ -16,12 +16,12 @@ spec:
     spec:
       containers:
         - name: mariadb
-          image: mariadb:10.6.4
+          image: ghcr.io/linuxserver/mariadb:alpine-10.5.12-r0-ls33
           ports:
             - containerPort: 3306
           volumeMounts:
             - name: passbolt-db-mount
-              mountPath: /var/lib/mysql
+              mountPath: /config
               subPath: programs/passbolt/mariadb
           envFrom:
             - secretRef:
@@ -29,7 +29,7 @@ spec:
             - configMapRef:
                 name: passbolt-db-config
         - name: passbolt
-          image: passbolt:stable-apache
+          image: passbolt/passbolt:3.2.0
           ports:
             - containerPort: 80
           envFrom:

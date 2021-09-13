@@ -4,7 +4,7 @@ metadata:
   namespace: passbolt-system
   name: passbolt-db-config
 data:
-  MARIADB_DATABASE: "passboltdb"
+  MYSQL_DATABASE: "passboltdb"
 
 ---
 
