@@ -14,7 +14,7 @@ metadata:
   namespace: passbolt-system
   name: passbolt-config
 data:
-  DATASOURCES_DEFAULT_HOST: "10.43.100.100:3306"
+  DATASOURCES_DEFAULT_HOST: "localhost:3306"
   DATASOURCES_DEFAULT_DATABASE: "passboltdb"
   APP_FULL_BASE_URL: "https://pass.heyit.works"
   EMAIL_DEFAULT_FROM: "no-reply@pass.heyit.works"
