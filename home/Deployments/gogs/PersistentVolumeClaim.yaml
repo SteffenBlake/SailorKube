@@ -2,9 +2,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
-    app: gitea-app
-  name: gitea-data-pvc
-  namespace: gitea-system
+    app: gogs-app
+  name: gogs-data-pvc
+  namespace: gogs-system
 spec:
   accessModes:
     - ReadWriteMany

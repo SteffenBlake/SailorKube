@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: gogs-app
+  namespace: gogs-system
+spec:
+  serviceName: gogs-app-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gogs-app
+  template:
+    metadata:
+      labels:
+        app: gogs-app
+    spec:
+      containers:
+        - name: gogs
+          image: gogs/gogs:1.15.0
+          ports:
+            - containerPort: 3000
+            - containerPort: 22
+          volumeMounts:
+            - name: gogs-data-pvc
+              mountPath: /data
+              subPath: programs/gogs
+            - name: gogs-timezone-host
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: gogs-localtime-host
+              mountPath: /etc/localtime
+              readOnly: true
+      volumes:
+      - name: gogs-data-pvc
+        persistentVolumeClaim:
+          claimName: gogs-data-pvc
+      - name: gogs-timezone-host
+        hostPath:
+          path: /etc/timezone
+          type: File
+      - name: gogs-localtime-host
+        hostPath:
+          path: /etc/localtime
+          type: File
