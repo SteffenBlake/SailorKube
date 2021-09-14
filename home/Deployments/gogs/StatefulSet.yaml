@@ -4,6 +4,8 @@ metadata:
   name: gogs-app
   namespace: gogs-system
 spec:
+
+
   serviceName: gogs-app-svc
   replicas: 1
   selector:
@@ -14,9 +16,11 @@ spec:
       labels:
         app: gogs-app
     spec:
+      nodeSelector: 
+        kubernetes.io/arch: arm64
       containers:
         - name: gogs
-          image: gogs/gogs:1.15.0
+          image: gogs/gogs-rpi:0.12
           ports:
             - containerPort: 3000
             - containerPort: 22
