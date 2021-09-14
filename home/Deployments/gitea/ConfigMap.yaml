@@ -9,4 +9,12 @@ data:
   GITEA__database__NAME: giteadb
   GITEA__database__USER: gitea
   GITEA__service__DISABLE_REGISTRATION: "true"
-  
+  GITEA__mailer__ENABLED: "true"
+  GITEA__mailer__HOST: "smtp.mailgun.org:587"
+  GITEA__mailer__FROM: "no-reply@repo.technically.fun"
+  GITEA__mailer__USER: "no-reply@repo.technically.fun"
+  GITEA__server__PROTOCOL: "https"
+  GITEA__server__DOMAIN: "repo.technically.fun"
+  GITEA__server__ROOT_URL: "https://repo.technically.fun/"
+  GITEA__server__LANDING_PAGE: "explore"
+  GITEA__server__REDIRECT_OTHER_PORT: "true"
