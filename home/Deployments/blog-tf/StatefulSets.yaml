@@ -24,10 +24,24 @@ spec:
               mountPath: /static
               subPath: programs/blog-tf
               readOnly: true
+            - name: blog-tf-timezone-host
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: blog-tf-localtime-host
+              mountPath: /etc/localtime
+              readOnly: true
       volumes:
       - name: blog-tf-static-mount
         persistentVolumeClaim:
           claimName: blog-tf-static-pvc
+      - name: blog-tf-timezone-host
+        hostPath:
+          path: /etc/timezone
+          type: File
+      - name: blog-tf-localtime-host
+        hostPath:
+          path: /etc/localtime
+          type: File
 
 ---
 
@@ -59,6 +73,12 @@ spec:
             - name: after-deploy-volume
               mountPath: /after-deploy.sh
               subPath: after-deploy.sh
+            - name: blog-tf-timezone-host
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: blog-tf-localtime-host
+              mountPath: /etc/localtime
+              readOnly: true
           env:
             - name: HUGO_KUBECTL_TOKEN
               valueFrom:
@@ -75,3 +95,11 @@ spec:
       - name: after-deploy-volume
         configMap:
           name: blog-tf-after-deploy-config
+      - name: blog-tf-timezone-host
+        hostPath:
+          path: /etc/timezone
+          type: File
+      - name: blog-tf-localtime-host
+        hostPath:
+          path: /etc/localtime
+          type: File
