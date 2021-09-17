@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-tf-svc
+  namespace: blog-tf-system
+  labels:
+    app: blog-tf-svc
+spec:
+  ports:
+  - port: 80
+    name: web
+  selector:
+    app: blog-tf-app
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-tf-builder-svc
+  namespace: blog-tf-system
+  labels:
+    app: blog-tf-builder-svc
+spec:
+  clusterIP: 10.43.100.100
+  ports:
+  - port: 9000
+    name: web
+  selector:
+    app: blog-tf-builder-app
