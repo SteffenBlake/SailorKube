@@ -4,8 +4,6 @@ metadata:
   name: gogs-app
   namespace: gogs-system
 spec:
-
-
   serviceName: gogs-app-svc
   replicas: 1
   selector:

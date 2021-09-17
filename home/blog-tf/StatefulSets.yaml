@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: blog-tf-app
+  namespace: blog-tf-system
+spec:
+  serviceName: blog-tf-app-svc
+  replicas: 4
+  selector:
+    matchLabels:
+      app: blog-tf-app
+  template:
+    metadata:
+      labels:
+        app: blog-tf-app
+    spec:
+      containers:
+        - name: nginx-static-ha
+          image: steffenblake/nginx-static-ha:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: blog-tf-static-mount
+              mountPath: /static
+              subPath: programs/blog-tf
+              readOnly: true
+      volumes:
+      - name: blog-tf-static-mount
+        persistentVolumeClaim:
+          claimName: blog-tf-static-pvc
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: blog-tf-builder-app
+  namespace: blog-tf-system
+spec:
+  serviceName: blog-tf-builder-app-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-tf-builder-app
+  template:
+    metadata:
+      labels:
+        app: blog-tf-builder-app
+    spec:
+      containers:
+        - name: webhook-hugo
+          image: steffenblake/webhook-hugo:latest
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - name: blog-tf-www-mount
+              mountPath: /www
+              subPath: programs/blog-tf
+            - name: after-deploy-volume
+              mountPath: /after-deploy.sh
+              subPath: after-deploy.sh
+          env:
+            - name: HUGO_KUBECTL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: blog-tf-sa-secret
+                  key: token
+          envFrom:
+            - configMapRef:
+                name: blog-tf-config
+      volumes:
+      - name: blog-tf-www-mount
+        persistentVolumeClaim:
+          claimName: blog-tf-www-pvc
+      - name: after-deploy-volume
+        configMap:
+          name: blog-tf-after-deploy-config

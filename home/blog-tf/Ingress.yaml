@@ -1,20 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: gogs-ingress
-  namespace: gogs-system
+  name: blog-tf-ingress
+  namespace: blog-tf-system
   annotations:
     kubernetes.io/ingress.class: nginx-exposed
-    nginx.ingress.kubernetes.io/proxy-body-size: 100m
 spec:
   rules:
-  - host: repo.technically.fun
+  - host: blog.technically.fun
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: gogs-svc
+            name: blog-tf-svc
             port:
-              number: 3000
+              number: 80
