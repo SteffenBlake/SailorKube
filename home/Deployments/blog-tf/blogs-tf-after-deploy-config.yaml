@@ -7,17 +7,18 @@ data:
   after-deploy.sh: |
     #!/bin/ash
 
-    curl --location --request PATCH 'https://192.168.0.6:6443/apis/apps/v1/namespaces/blog-tf-system/statefulsets/blogs-tf-app?fieldManager=kubectl-rollout&pretty=true' \
-    --header 'Content-Type: application/strategic-merge-patch+json' \
-    --header "Authorization: Bearer $HUGO_KUBECTL_TOKEN" \
-    --data-raw '{
-        "spec": {
-            "template": {
-                "metadata": {
-                    "annotations": {
-                        "kubectl.kubernetes.io/restartedAt": <time.Now()>
+    curl -L -X PATCH 'https://192.168.0.6:6443/apis/apps/v1/namespaces/blog-tf-system/statefulsets/blog-tf-app?fieldManager=kubectl-rollout&pretty=true' \
+    -H 'Content-Type: application/strategic-merge-patch+json' \
+    -H "Authorization: Bearer $HUGO_KUBECTL_TOKEN" \
+    --insecure
+    -d "[{
+        \"spec\": {
+            \"template\": {
+                \"metadata\": {
+                    \"annotations\": {
+                        \"kubectl.kubernetes.io/restartedAt\": \"$(date)\"
                     }
                 }
             }
         }
-    }'
+    }]"
