@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: blog-tf-rebuild-job
+  namespace: blog-tf-system
+spec:
+  # Run daily at 1AM
+  schedule: "0 0 1 1/1 * ? *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: rebuild
+            image: busybox
+            imagePullPolicy: IfNotPresent
+            command:
+            - curl 10.43.100.100:9000/hooks/build
+            volumeMounts:
+            - name: blog-tf-timezone-host
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: blog-tf-localtime-host
+              mountPath: /etc/localtime
+              readOnly: true
+          restartPolicy: OnFailure
+      volumes:
+      - name: blog-tf-timezone-host
+        hostPath:
+          path: /etc/timezone
+          type: File
+      - name: blog-tf-localtime-host
+        hostPath:
+          path: /etc/localtime
+          type: File
