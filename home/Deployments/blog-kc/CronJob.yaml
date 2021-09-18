@@ -12,9 +12,11 @@ spec:
         spec:
           containers:
           - name: rebuild
-            image: busybox
+            image: curlimages/curl
             imagePullPolicy: IfNotPresent
             command:
+            - /bin/sh
+            - -c
             - curl 10.43.100.101:9000/hooks/build
             volumeMounts:
             - name: blog-kc-timezone-host
