@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blog-kc-ingress
+  namespace: blog-kc-system
+  annotations:
+    kubernetes.io/ingress.class: nginx-exposed
+spec:
+  rules:
+  - host: kristinac.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: blog-kc-svc
+            port:
+              number: 80

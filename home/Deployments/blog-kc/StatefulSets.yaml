@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: blog-kc-app
+  namespace: blog-kc-system
+spec:
+  serviceName: blog-kc-app-svc
+  replicas: 4
+  selector:
+    matchLabels:
+      app: blog-kc-app
+  template:
+    metadata:
+      labels:
+        app: blog-kc-app
+    spec:
+      containers:
+        - name: nginx-static-ha
+          image: steffenblake/nginx-static-ha:1.0.4
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: blog-kc-static-mount
+              mountPath: /static
+              subPath: programs/blog-kc
+              readOnly: true
+            - name: blog-kc-timezone-host
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: blog-kc-localtime-host
+              mountPath: /etc/localtime
+              readOnly: true
+      volumes:
+      - name: blog-kc-static-mount
+        persistentVolumeClaim:
+          claimName: blog-kc-static-pvc
+      - name: blog-kc-timezone-host
+        hostPath:
+          path: /etc/timezone
+          type: File
+      - name: blog-kc-localtime-host
+        hostPath:
+          path: /etc/localtime
+          type: File
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: blog-kc-builder-app
+  namespace: blog-kc-system
+spec:
+  serviceName: blog-kc-builder-app-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-kc-builder-app
+  template:
+    metadata:
+      labels:
+        app: blog-kc-builder-app
+    spec:
+      containers:
+        - name: webhook-hugo
+          image: steffenblake/webhook-hugo:1.0.10
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - name: blog-kc-www-mount
+              mountPath: /www
+              subPath: programs/blog-kc
+            - name: after-deploy-volume
+              mountPath: /after-deploy.sh
+              subPath: after-deploy.sh
+            - name: blog-kc-timezone-host
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: blog-kc-localtime-host
+              mountPath: /etc/localtime
+              readOnly: true
+          env:
+            - name: HUGO_KUBECTL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: blog-kc-sa-secret
+                  key: token
+          envFrom:
+            - configMapRef:
+                name: blog-kc-config
+      volumes:
+      - name: blog-kc-www-mount
+        persistentVolumeClaim:
+          claimName: blog-kc-www-pvc
+      - name: after-deploy-volume
+        configMap:
+          name: blog-kc-after-deploy-config
+      - name: blog-kc-timezone-host
+        hostPath:
+          path: /etc/timezone
+          type: File
+      - name: blog-kc-localtime-host
+        hostPath:
+          path: /etc/localtime
+          type: File

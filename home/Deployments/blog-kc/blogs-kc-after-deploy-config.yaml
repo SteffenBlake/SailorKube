@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: blog-tf-system
-  name: blog-tf-after-deploy-config
+  namespace: blog-kc-system
+  name: blog-kc-after-deploy-config
 data:
   after-deploy.sh: |
     #!/bin/ash
 
-    curl -L -X PATCH 'https://192.168.0.6:6443/apis/apps/v1/namespaces/blog-tf-system/statefulsets/blog-tf-app?fieldManager=kubectl-rollout&pretty=true' \
+    curl -L -X PATCH 'https://192.168.0.6:6443/apis/apps/v1/namespaces/blog-kc-system/statefulsets/blog-kc-app?fieldManager=kubectl-rollout&pretty=true' \
     -H 'Content-Type: application/strategic-merge-patch+json' \
     -H "Authorization: Bearer $HUGO_KUBECTL_TOKEN" \
     --insecure \

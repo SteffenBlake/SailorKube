@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-kc-svc
+  namespace: blog-kc-system
+  labels:
+    app: blog-kc-svc
+spec:
+  ports:
+  - port: 80
+    name: web
+  selector:
+    app: blog-kc-app
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-kc-builder-svc
+  namespace: blog-kc-system
+  labels:
+    app: blog-kc-builder-svc
+spec:
+  clusterIP: 10.43.100.101
+  ports:
+  - port: 9000
+    name: web
+  selector:
+    app: blog-kc-builder-app
