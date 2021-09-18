@@ -24,12 +24,12 @@ spec:
               mountPath: /etc/localtime
               readOnly: true
           restartPolicy: OnFailure
-      volumes:
-      - name: blog-kc-timezone-host
-        hostPath:
-          path: /etc/timezone
-          type: File
-      - name: blog-kc-localtime-host
-        hostPath:
-          path: /etc/localtime
-          type: File
+          volumes:
+          - name: blog-kc-timezone-host
+            hostPath:
+              path: /etc/timezone
+              type: File
+          - name: blog-kc-localtime-host
+            hostPath:
+              path: /etc/localtime
+              type: File

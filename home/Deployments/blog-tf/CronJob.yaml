@@ -24,12 +24,12 @@ spec:
               mountPath: /etc/localtime
               readOnly: true
           restartPolicy: OnFailure
-      volumes:
-      - name: blog-tf-timezone-host
-        hostPath:
-          path: /etc/timezone
-          type: File
-      - name: blog-tf-localtime-host
-        hostPath:
-          path: /etc/localtime
-          type: File
+          volumes:
+          - name: blog-tf-timezone-host
+            hostPath:
+              path: /etc/timezone
+              type: File
+          - name: blog-tf-localtime-host
+            hostPath:
+              path: /etc/localtime
+              type: File
