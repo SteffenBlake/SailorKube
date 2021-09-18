@@ -4,4 +4,5 @@ metadata:
   namespace: blog-kc-system
   name: blog-kc-config
 data:
+  HUGO_BRANCH: "main"
   HUGO_REPOSITORY: "https://repo.technically.fun/kgarner/MyBlog.git"
