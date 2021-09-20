@@ -5,4 +5,4 @@ metadata:
   name: blog-kc-config
 data:
   HUGO_BRANCH: "main"
-  HUGO_REPOSITORY: "https://repo.technically.fun/kgarner/MyBlog.git"
+  CRONJOB_REPOSITORY: "https://repo.technically.fun/kgarner/MyBlog.git"

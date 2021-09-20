@@ -63,7 +63,7 @@ spec:
     spec:
       containers:
         - name: webhook-hugo
-          image: steffenblake/webhook-hugo:1.0.11
+          image: steffenblake/webhook-hugo:1.0.12
           ports:
             - containerPort: 9000
           volumeMounts:
@@ -86,6 +86,8 @@ spec:
                   name: blog-kc-sa-secret
                   key: token
           envFrom:
+            - secretRef:
+                name: blog-kc-secrets
             - configMapRef:
                 name: blog-kc-config
       volumes:

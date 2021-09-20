@@ -17,7 +17,11 @@ spec:
             command:
             - /bin/sh
             - -c
-            - curl 10.43.100.101:9000/hooks/build
+            - content="Content-Type: application/json"
+            - secret="X-Gitlab-Token: $(HUGO_PUSH_SECRET)"
+            - repository = "{ \"clone_url\": \"$(CRONJOB_REPOSITORY)\" }"
+            - data="{ \"ref\": \"$(HUGO_BRANCH)\", \"repository\": $(repository) }"
+            - curl -x POST -H $content -H $secret -d $data 10.43.100.101:9000/hooks/build
             volumeMounts:
             - name: blog-kc-timezone-host
               mountPath: /etc/timezone
@@ -25,6 +29,11 @@ spec:
             - name: blog-kc-localtime-host
               mountPath: /etc/localtime
               readOnly: true
+            envFrom:
+            - secretRef:
+                name: blog-kc-secrets
+            - configMapRef:
+                name: blog-kc-config
           restartPolicy: OnFailure
           volumes:
           - name: blog-kc-timezone-host
