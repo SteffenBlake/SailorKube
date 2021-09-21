@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: vaultwarden-system
+  name: vaultwarden-config
+data:
+  SIGNUPS_ALLOWED: "false"
+  DOMAIN: "https://pass.heyit.works"
+  SMTP_HOST: "smtp.mailgun.org"
+  SMTP_FROM: "no-reply@pass.heyit.works"
+  SMTP_PORT: "587"
+  SMTP_USERNAME: "no-reply@pass.heyit.works"

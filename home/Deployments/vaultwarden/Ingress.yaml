@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: passbolt-ingress
-  namespace: passbolt-system
+  name: vaultwarden-ingress
+  namespace: vaultwarden-system
   annotations:
     kubernetes.io/ingress.class: nginx-exposed
 spec:
@@ -14,7 +14,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: passbolt-svc
+            name: vaultwarden-svc
             port:
               number: 80
 
@@ -23,8 +23,8 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: passbolt-ingress-internal
-  namespace: passbolt-system
+  name: vaultwarden-ingress-internal
+  namespace: vaultwarden-system
   annotations:
     kubernetes.io/ingress.class: nginx-internal
 spec:
@@ -36,6 +36,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: passbolt-svc
+            name: vaultwarden-svc
             port:
               number: 80

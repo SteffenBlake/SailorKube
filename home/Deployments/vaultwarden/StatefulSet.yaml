@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: vaultwarden-app
+  namespace: vaultwarden-system
+spec:
+  serviceName: vaultwarden-app-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vaultwarden-app
+  template:
+    metadata:
+      labels:
+        app: vaultwarden-app
+    spec:
+      containers:
+        - name: vaultwarden
+          image: vaultwarden/server
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: vaultwarden-mount
+              mountPath: /data
+              subPath: programs/vaultwarden
+            - name: vaultwarden-timezone-host
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: vaultwarden-localtime-host
+              mountPath: /etc/localtime
+              readOnly: true
+          envFrom:
+            - secretRef:
+                name: vaultwarden-secrets
+            - configMapRef:
+                name: vaultwarden-config
+      volumes:
+      - name: vaultwarden-mount
+        persistentVolumeClaim:
+          claimName: vaultwarden-pvc
+      - name: vaultwarden-timezone-host
+        hostPath:
+          path: /etc/timezone
+          type: File
+      - name: vaultwarden-localtime-host
+        hostPath:
+          path: /etc/localtime
+          type: File

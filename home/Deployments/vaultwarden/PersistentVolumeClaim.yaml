@@ -2,9 +2,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
-    app: passbolt-app
-  name: passbolt-db-pvc
-  namespace: passbolt-system
+    app: vaultwarden-app
+  name: vaultwarden-pvc
+  namespace: vaultwarden-system
 spec:
   accessModes:
     - ReadWriteMany

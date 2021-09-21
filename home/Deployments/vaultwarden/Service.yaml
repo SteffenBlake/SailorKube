@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: passbolt-svc
+  name: vaultwarden-svc
   labels:
-    app: passbolt-svc
+    app: vaultwarden-svc
 spec:
   ports:
   - port: 80
     name: web
   selector:
-    app: passbolt-app
+    app: vaultwarden-app
