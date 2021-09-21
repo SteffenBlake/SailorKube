@@ -46,4 +46,5 @@ spec:
               type: File
           - name: curl-trigger-volume
             configMap:
-              name: blog-kc-curl-trigger-config
+              name: blog-tf-curl-trigger-config
+              defaultMode: 0777

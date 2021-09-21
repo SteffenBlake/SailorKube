@@ -47,3 +47,4 @@ spec:
           - name: curl-trigger-volume
             configMap:
               name: blog-kc-curl-trigger-config
+              defaultMode: 0777
