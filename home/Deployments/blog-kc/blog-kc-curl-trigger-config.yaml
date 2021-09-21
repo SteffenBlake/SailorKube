@@ -9,10 +9,10 @@ data:
 
     curl -L -X POST '10.43.100.101:9000/hooks/build' \
     -H 'Content-Type: application/json' \
-    -H "X-Gitlab-Token: $HUGO_PUSH_SECRET" \
     --insecure \
     -d "{
-        \"ref\" : \"$HUGO_BRANCH\"
+        \"ref\" : \"$HUGO_BRANCH\",
+        \"secret\": \"$HUGO_PUSH_SECRET\",
         \"repository\": {
             \"clone_url\": \"$CRONJOB_REPOSITORY\"
         }
