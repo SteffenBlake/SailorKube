@@ -10,3 +10,4 @@ data:
   SMTP_FROM: "no-reply@pass.heyit.works"
   SMTP_PORT: "587"
   SMTP_USERNAME: "no-reply@pass.heyit.works"
+  SHOW_PASSWORD_HINT: "false"

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: blog-tf-system
+  name: blog-tf-curl-trigger-config
+data:
+  curl-trigger.sh: |
+    #!/bin/ash
+
+    curl -L -X POST '10.43.100.100:9000/hooks/build' \
+    -H 'Content-Type: application/json' \
+    -H "X-Gitlab-Token: $HUGO_PUSH_SECRET" \
+    --insecure \
+    -d "{
+        \"ref\" : \"$HUGO_BRANCH\"
+        \"repository\": {
+            \"clone_url\": \"$CRONJOB_REPOSITORY\"
+        }
+    }"

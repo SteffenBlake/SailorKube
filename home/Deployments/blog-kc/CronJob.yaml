@@ -17,17 +17,17 @@ spec:
             command:
             - /bin/sh
             - -c
-            - content="Content-Type: application/json"
-            - secret="X-Gitlab-Token: $(HUGO_PUSH_SECRET)"
-            - repository = "{ \"clone_url\": \"$(CRONJOB_REPOSITORY)\" }"
-            - data="{ \"ref\": \"$(HUGO_BRANCH)\", \"repository\": $(repository) }"
-            - curl -x POST -H $content -H $secret -d $data 10.43.100.101:9000/hooks/build
+            - /curl-trigger.sh
             volumeMounts:
             - name: blog-kc-timezone-host
               mountPath: /etc/timezone
               readOnly: true
             - name: blog-kc-localtime-host
               mountPath: /etc/localtime
+              readOnly: true
+            - name: curl-trigger-volume
+              mountPath: /curl-trigger.sh
+              subPath: curl-trigger.sh
               readOnly: true
             envFrom:
             - secretRef:
@@ -44,3 +44,6 @@ spec:
             hostPath:
               path: /etc/localtime
               type: File
+          - name: curl-trigger-volume
+            configMap:
+              name: blog-kc-curl-trigger-config

@@ -73,6 +73,7 @@ spec:
             - name: after-deploy-volume
               mountPath: /after-deploy.sh
               subPath: after-deploy.sh
+              readOnly: true
             - name: blog-tf-timezone-host
               mountPath: /etc/timezone
               readOnly: true
