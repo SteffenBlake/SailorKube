@@ -63,7 +63,7 @@ spec:
     spec:
       containers:
         - name: webhook-hugo
-          image: steffenblake/webhook-hugo:1.0.13
+          image: steffenblake/webhook-hugo:1.0.14
           ports:
             - containerPort: 9000
           volumeMounts:
@@ -73,6 +73,10 @@ spec:
             - name: after-deploy-volume
               mountPath: /after-deploy.sh
               subPath: after-deploy.sh
+              readOnly: true
+            - name: ssh-secret-volume
+              mountPath: /home/webhook/.ssh/authorized_keys
+              subPath: authorized_keys
               readOnly: true
             - name: blog-tf-timezone-host
               mountPath: /etc/timezone
@@ -98,6 +102,9 @@ spec:
       - name: after-deploy-volume
         configMap:
           name: blog-tf-after-deploy-config
+      - name: ssh-secret-volume
+        secret:
+          name: blog-tf-ssh-secret
       - name: blog-tf-timezone-host
         hostPath:
           path: /etc/timezone

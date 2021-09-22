@@ -63,7 +63,7 @@ spec:
     spec:
       containers:
         - name: webhook-hugo
-          image: steffenblake/webhook-hugo:1.0.13
+          image: steffenblake/webhook-hugo:1.0.14
           ports:
             - containerPort: 9000
           volumeMounts:

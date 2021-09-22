@@ -6,8 +6,11 @@ metadata:
   labels:
     app: gogs-svc
 spec:
+  clusterIP: 10.43.100.110
   ports:
   - port: 3000
     name: web
+  - port: 22
+    name: ssh
   selector:
     app: gogs-app
