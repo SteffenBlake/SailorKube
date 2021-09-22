@@ -12,8 +12,5 @@ data:
     -H "X-Gitlab-Token: $HUGO_PUSH_SECRET" \
     --insecure \
     -d "{
-        \"ref\" : \"$HUGO_BRANCH\",
-        \"repository\": {
-            \"clone_url\": \"$CRONJOB_REPOSITORY\"
-        }
+        \"ref\" : \"$HUGO_BRANCH\"
     }"
