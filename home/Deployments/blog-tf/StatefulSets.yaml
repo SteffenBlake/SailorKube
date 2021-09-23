@@ -63,7 +63,7 @@ spec:
     spec:
       containers:
         - name: webhook-hugo
-          image: steffenblake/webhook-hugo:1.0.14.2
+          image: steffenblake/webhook-hugo:1.0.14.3
           ports:
             - containerPort: 9000
           volumeMounts:
@@ -74,9 +74,9 @@ spec:
               mountPath: /after-deploy.sh
               subPath: after-deploy.sh
               readOnly: true
-            - name: ssh-secret-volume
+            - name: gogs-ssh-volume
               mountPath: /home/webhook/.ssh
-              readOnly: true
+              subPath: programs/gogs/sblake-webhook
             - name: blog-tf-timezone-host
               mountPath: /etc/timezone
               readOnly: true
@@ -101,9 +101,9 @@ spec:
       - name: after-deploy-volume
         configMap:
           name: blog-tf-after-deploy-config
-      - name: ssh-secret-volume
-        secret:
-          secretName: blog-tf-ssh-secret
+      - name: gogs-ssh-volume
+        persistentVolumeClaim:
+          claimName: blog-tf-gogs-ssh-pvc
       - name: blog-tf-timezone-host
         hostPath:
           path: /etc/timezone

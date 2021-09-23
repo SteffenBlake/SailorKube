@@ -27,3 +27,22 @@ spec:
   resources:
     requests:
       storage: 1Gi
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: blog-tf-app
+  name: blog-tf-gogs-ssh-pvc
+  namespace: blog-tf-system
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi
+
+
+        
