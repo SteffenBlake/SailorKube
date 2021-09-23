@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blog-ni-ingress
+  namespace: blog-ni-system
+  annotations:
+    kubernetes.io/ingress.class: nginx-exposed
+spec:
+  rules:
+  - host: nightmares.technically.fun
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: blog-ni-svc
+            port:
+              number: 80

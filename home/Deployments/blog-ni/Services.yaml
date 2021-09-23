@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-ni-svc
+  namespace: blog-ni-system
+  labels:
+    app: blog-ni-svc
+spec:
+  ports:
+  - port: 80
+    name: web
+  selector:
+    app: blog-ni-app
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-ni-builder-svc
+  namespace: blog-ni-system
+  labels:
+    app: blog-ni-builder-svc
+spec:
+  clusterIP: 10.43.100.102
+  ports:
+  - port: 9000
+    name: web
+  selector:
+    app: blog-ni-builder-app

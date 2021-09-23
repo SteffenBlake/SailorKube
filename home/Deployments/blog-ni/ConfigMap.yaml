@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: blog-ni-system
+  name: blog-ni-config
+data:
+  HUGO_BRANCH: "master"
+  HUGO_REPOSITORY: "git@repo.technically.fun:sblake/Nightmares.git"

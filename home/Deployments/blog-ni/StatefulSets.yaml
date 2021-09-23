@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: blog-tf-app
-  namespace: blog-tf-system
+  name: blog-ni-app
+  namespace: blog-ni-system
 spec:
-  serviceName: blog-tf-app-svc
+  serviceName: blog-ni-app-svc
   replicas: 4
   selector:
     matchLabels:
-      app: blog-tf-app
+      app: blog-ni-app
   template:
     metadata:
       labels:
-        app: blog-tf-app
+        app: blog-ni-app
     spec:
       containers:
         - name: nginx-static-ha
@@ -20,25 +20,25 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
-            - name: blog-tf-static-mount
+            - name: blog-ni-static-mount
               mountPath: /static
-              subPath: programs/blog-tf
+              subPath: programs/blog-ni
               readOnly: true
-            - name: blog-tf-timezone-host
+            - name: blog-ni-timezone-host
               mountPath: /etc/timezone
               readOnly: true
-            - name: blog-tf-localtime-host
+            - name: blog-ni-localtime-host
               mountPath: /etc/localtime
               readOnly: true
       volumes:
-      - name: blog-tf-static-mount
+      - name: blog-ni-static-mount
         persistentVolumeClaim:
-          claimName: blog-tf-static-pvc
-      - name: blog-tf-timezone-host
+          claimName: blog-ni-static-pvc
+      - name: blog-ni-timezone-host
         hostPath:
           path: /etc/timezone
           type: File
-      - name: blog-tf-localtime-host
+      - name: blog-ni-localtime-host
         hostPath:
           path: /etc/localtime
           type: File
@@ -48,18 +48,18 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: blog-tf-builder-app
-  namespace: blog-tf-system
+  name: blog-ni-builder-app
+  namespace: blog-ni-system
 spec:
-  serviceName: blog-tf-builder-app-svc
+  serviceName: blog-ni-builder-app-svc
   replicas: 1
   selector:
     matchLabels:
-      app: blog-tf-builder-app
+      app: blog-ni-builder-app
   template:
     metadata:
       labels:
-        app: blog-tf-builder-app
+        app: blog-ni-builder-app
     spec:
       containers:
         - name: webhook-hugo
@@ -67,9 +67,9 @@ spec:
           ports:
             - containerPort: 9000
           volumeMounts:
-            - name: blog-tf-www-mount
+            - name: blog-ni-www-mount
               mountPath: /www
-              subPath: programs/blog-tf
+              subPath: programs/blog-ni
             - name: after-deploy-volume
               mountPath: /after-deploy.sh
               subPath: after-deploy.sh
@@ -78,38 +78,38 @@ spec:
               mountPath: /home/webhook/.ssh
               subPath: programs/gogs/sblake-webhook
               readOnly: true
-            - name: blog-tf-timezone-host
+            - name: blog-ni-timezone-host
               mountPath: /etc/timezone
               readOnly: true
-            - name: blog-tf-localtime-host
+            - name: blog-ni-localtime-host
               mountPath: /etc/localtime
               readOnly: true
           env:
             - name: HUGO_KUBECTL_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: blog-tf-sa-secret
+                  name: blog-ni-sa-secret
                   key: token
           envFrom:
             - secretRef:
-                name: blog-tf-secrets
+                name: blog-ni-secrets
             - configMapRef:
-                name: blog-tf-config
+                name: blog-ni-config
       volumes:
-      - name: blog-tf-www-mount
+      - name: blog-ni-www-mount
         persistentVolumeClaim:
-          claimName: blog-tf-www-pvc
+          claimName: blog-ni-www-pvc
       - name: after-deploy-volume
         configMap:
-          name: blog-tf-after-deploy-config
+          name: blog-ni-after-deploy-config
       - name: gogs-ssh-volume
         persistentVolumeClaim:
-          claimName: blog-tf-gogs-ssh-pvc
-      - name: blog-tf-timezone-host
+          claimName: blog-ni-gogs-ssh-pvc
+      - name: blog-ni-timezone-host
         hostPath:
           path: /etc/timezone
           type: File
-      - name: blog-tf-localtime-host
+      - name: blog-ni-localtime-host
         hostPath:
           path: /etc/localtime
           type: File
