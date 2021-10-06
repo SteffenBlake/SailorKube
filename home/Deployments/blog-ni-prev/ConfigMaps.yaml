@@ -6,6 +6,7 @@ metadata:
 data:
   PATREON_OATH_PatreonApi__ClientId: "0yjtCKnZ2OHgvHJbFsT33_EmUAf0yOll_mi3mGLA0f8EZLUPMIs3uPe6xEtCyPWF"
   PATREON_OATH_PatreonPageUrl: "https://www.patreon.com/technically_fun"
+  PATREON_OATH_Origin: "nightmares-prev.technically.fun"
 
 ---
 
@@ -17,5 +18,5 @@ metadata:
 data:
   HUGO_BRANCH: "master"
   HUGO_REPOSITORY: "git@repo.technically.fun:sblake/Nightmares.git"
-  HUGO_ARGS: "-F --baseURL https://prev.nightmares.technically.fun/"
+  HUGO_ARGS: "-F --baseURL https://nightmares-prev.technically.fun/"
   HUGO_PARAMS_ShowFuture: "TRUE"
