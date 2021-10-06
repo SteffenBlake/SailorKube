@@ -6,3 +6,4 @@ metadata:
 data:
   HUGO_BRANCH: "master"
   HUGO_REPOSITORY: "git@repo.technically.fun:sblake/Nightmares.git"
+  HUGO_ARGS: "-F --baseURL https://nightmares.technically.fun/"

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: blog-ni-prev-system
+  name: blog-ni-prev-static-config
+data:
+  PATREON_OATH_PatreonApi__ClientId: "0yjtCKnZ2OHgvHJbFsT33_EmUAf0yOll_mi3mGLA0f8EZLUPMIs3uPe6xEtCyPWF"
+  PATREON_OATH_PatreonPageUrl: "https://www.patreon.com/technically_fun"
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: blog-ni-prev-system
+  name: blog-ni-prev-build-config
+data:
+  HUGO_BRANCH: "master"
+  HUGO_REPOSITORY: "git@repo.technically.fun:sblake/Nightmares.git"
+  HUGO_ARGS: "-F --baseURL https://prev.nightmares.technically.fun/"
+  HUGO_PARAMS_ShowFuture: "TRUE"

@@ -1,0 +1,120 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: blog-ni-prev-app
+  namespace: blog-ni-prev-system
+spec:
+  serviceName: blog-ni-prev-app-svc
+  replicas: 4
+  selector:
+    matchLabels:
+      app: blog-ni-prev-app
+  template:
+    metadata:
+      labels:
+        app: blog-ni-prev-app
+    spec:
+      containers:
+        - name: patreon-static-oauth
+          image: steffenblake/patreon-static-oauth:1.0.0
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: blog-ni-prev-static-mount
+              mountPath: /static
+              subPath: programs/blog-ni-prev
+              readOnly: true
+            - name: blog-ni-prev-timezone-host
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: blog-ni-prev-localtime-host
+              mountPath: /etc/localtime
+              readOnly: true
+          envFrom:
+            - secretRef:
+                name: blog-ni-prev-static-secrets
+            - configMapRef:
+                name: blog-ni-prev-static-config
+      volumes:
+      - name: blog-ni-prev-static-mount
+        persistentVolumeClaim:
+          claimName: blog-ni-prev-static-pvc
+      - name: blog-ni-prev-timezone-host
+        hostPath:
+          path: /etc/timezone
+          type: File
+      - name: blog-ni-prev-localtime-host
+        hostPath:
+          path: /etc/localtime
+          type: File
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: blog-ni-prev-builder-app
+  namespace: blog-ni-prev-system
+spec:
+  serviceName: blog-ni-prev-builder-app-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-ni-prev-builder-app
+  template:
+    metadata:
+      labels:
+        app: blog-ni-prev-builder-app
+    spec:
+      containers:
+        - name: webhook-hugo
+          image: steffenblake/webhook-hugo:1.0.15
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - name: blog-ni-prev-www-mount
+              mountPath: /www
+              subPath: programs/blog-ni-prev
+            - name: after-deploy-volume
+              mountPath: /after-deploy.sh
+              subPath: after-deploy.sh
+              readOnly: true
+            - name: gogs-ssh-volume
+              mountPath: /home/webhook/.ssh
+              subPath: programs/gogs/sblake-webhook
+              readOnly: true
+            - name: blog-ni-prev-timezone-host
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: blog-ni-prev-localtime-host
+              mountPath: /etc/localtime
+              readOnly: true
+          env:
+            - name: HUGO_KUBECTL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: blog-ni-prev-sa-secret
+                  key: token
+          envFrom:
+            - secretRef:
+                name: blog-ni-prev-build-secrets
+            - configMapRef:
+                name: blog-ni-prev-build-config
+      volumes:
+      - name: blog-ni-prev-www-mount
+        persistentVolumeClaim:
+          claimName: blog-ni-prev-www-pvc
+      - name: after-deploy-volume
+        configMap:
+          name: blog-ni-prev-after-deploy-config
+      - name: gogs-ssh-volume
+        persistentVolumeClaim:
+          claimName: blog-ni-prev-gogs-ssh-pvc
+      - name: blog-ni-prev-timezone-host
+        hostPath:
+          path: /etc/timezone
+          type: File
+      - name: blog-ni-prev-localtime-host
+        hostPath:
+          path: /etc/localtime
+          type: File

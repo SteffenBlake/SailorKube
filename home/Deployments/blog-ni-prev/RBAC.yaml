@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: blog-ni-prev-sa
+  namespace: blog-ni-prev-system
+automountServiceAccountToken: true
+secrets:
+- name: blog-ni-prev-sa-secret
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: blog-ni-prev-sa-secret
+  namespace: blog-ni-prev-system
+  annotations:
+    kubernetes.io/service-account.name: blog-ni-prev-sa
+type: kubernetes.io/service-account-token
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: blog-ni-prev-system
+  name: blog-ni-prev-deployment-role
+rules:
+- apiGroups: ["apps"]
+  resources: ["statefulsets"]
+  verbs: ["patch"]
+
+---
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: blog-ni-prev-system
+  name: blog-ni-prev-deployment-rolebinding
+subjects:
+- kind: ServiceAccount
+  name: blog-ni-prev-sa
+  namespace: blog-ni-prev-system
+roleRef:
+  kind: Role
+  name: blog-ni-prev-deployment-role
+  apiGroup: rbac.authorization.k8s.io

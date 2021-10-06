@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: blog-ni-prev-rebuild-job
+  namespace: blog-ni-prev-system
+spec:
+  # Run daily at 3:30AM
+  schedule: "30 3 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: rebuild
+            image: curlimages/curl
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - /curl-trigger.sh
+            volumeMounts:
+            - name: blog-ni-prev-timezone-host
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: blog-ni-prev-localtime-host
+              mountPath: /etc/localtime
+              readOnly: true
+            - name: curl-trigger-volume
+              mountPath: /curl-trigger.sh
+              subPath: curl-trigger.sh
+              readOnly: true
+            envFrom:
+            - secretRef:
+                name: blog-ni-prev-secrets
+            - configMapRef:
+                name: blog-ni-prev-config
+          restartPolicy: OnFailure
+          volumes:
+          - name: blog-ni-prev-timezone-host
+            hostPath:
+              path: /etc/timezone
+              type: File
+          - name: blog-ni-prev-localtime-host
+            hostPath:
+              path: /etc/localtime
+              type: File
+          - name: curl-trigger-volume
+            configMap:
+              name: blog-ni-prev-curl-trigger-config
+              defaultMode: 0777

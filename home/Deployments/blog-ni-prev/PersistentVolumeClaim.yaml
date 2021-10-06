@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: blog-ni-prev-app
+  name: blog-ni-prev-static-pvc
+  namespace: blog-ni-prev-system
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: blog-ni-prev-app
+  name: blog-ni-prev-www-pvc
+  namespace: blog-ni-prev-system
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: blog-ni-prev-app
+  name: blog-ni-prev-gogs-ssh-pvc
+  namespace: blog-ni-prev-system
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi
+
+
+        
