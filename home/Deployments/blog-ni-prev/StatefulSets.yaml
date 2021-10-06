@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: patreon-static-oauth
-          image: steffenblake/patreon-static-oauth:1.0.5
+          image: steffenblake/patreon-static-oauth:1.0.6
           ports:
             - containerPort: 5002
           volumeMounts:
