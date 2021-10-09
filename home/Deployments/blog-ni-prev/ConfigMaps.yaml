@@ -17,6 +17,6 @@ metadata:
   name: blog-ni-prev-build-config
 data:
   HUGO_BRANCH: "master"
-  HUGO_REPOSITORY: "git@repo.technically.fun:sblake/Nightmares.git"
+  HUGO_REPOSITORY: "git@10.43.100.110:sblake/Nightmares.git"
   HUGO_ARGS: "-F --baseURL https://nightmares-prev.technically.fun/"
   HUGO_PARAMS_ShowFuture: "TRUE"
