@@ -74,6 +74,9 @@ spec:
               mountPath: /after-deploy.sh
               subPath: after-deploy.sh
               readOnly: true
+            - name: gogs-ssh-volume
+              mountPath: /home/webhook/.ssh
+              subPath: programs/gogs/webhook-blog-kc
             - name: blog-kc-timezone-host
               mountPath: /etc/timezone
               readOnly: true
@@ -98,6 +101,9 @@ spec:
       - name: after-deploy-volume
         configMap:
           name: blog-kc-after-deploy-config
+      - name: gogs-ssh-volume
+        persistentVolumeClaim:
+          claimName: blog-kc-gogs-ssh-pvc
       - name: blog-kc-timezone-host
         hostPath:
           path: /etc/timezone

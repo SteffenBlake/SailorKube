@@ -27,3 +27,19 @@ spec:
   resources:
     requests:
       storage: 1Gi
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: blog-kc-app
+  name: blog-kc-gogs-ssh-pvc
+  namespace: blog-kc-system
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi
