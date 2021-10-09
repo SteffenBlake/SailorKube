@@ -20,7 +20,7 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
-            - name: technically-fun-static-mount
+            - name: technically-fun-mount
               mountPath: /static
               subPath: programs/technically-fun
               readOnly: true
@@ -31,9 +31,9 @@ spec:
               mountPath: /etc/localtime
               readOnly: true
       volumes:
-      - name: technically-fun-static-mount
+      - name: technically-fun-mount
         persistentVolumeClaim:
-          claimName: technically-fun-static-pvc
+          claimName: technically-fun-pvc
       - name: technically-fun-timezone-host
         hostPath:
           path: /etc/timezone
