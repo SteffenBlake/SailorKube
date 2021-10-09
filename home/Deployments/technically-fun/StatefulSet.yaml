@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: technically-fun-app
+  namespace: technically-fun-system
+spec:
+  serviceName: technically-fun-app-svc
+  replicas: 4
+  selector:
+    matchLabels:
+      app: technically-fun-app
+  template:
+    metadata:
+      labels:
+        app: technically-fun-app
+    spec:
+      containers:
+        - name: nginx-static-ha
+          image: steffenblake/nginx-static-ha:1.0.4
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: technically-fun-static-mount
+              mountPath: /static
+              subPath: programs/technically-fun
+              readOnly: true
+            - name: technically-fun-timezone-host
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: technically-fun-localtime-host
+              mountPath: /etc/localtime
+              readOnly: true
+      volumes:
+      - name: technically-fun-static-mount
+        persistentVolumeClaim:
+          claimName: technically-fun-static-pvc
+      - name: technically-fun-timezone-host
+        hostPath:
+          path: /etc/timezone
+          type: File
+      - name: technically-fun-localtime-host
+        hostPath:
+          path: /etc/localtime
+          type: File
