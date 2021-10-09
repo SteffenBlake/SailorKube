@@ -76,8 +76,7 @@ spec:
               readOnly: true
             - name: gogs-ssh-volume
               mountPath: /home/webhook/.ssh
-              subPath: programs/gogs/sblake-webhook
-              readOnly: true
+              subPath: programs/gogs/webhook-blog-tf
             - name: blog-tf-timezone-host
               mountPath: /etc/timezone
               readOnly: true
