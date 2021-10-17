@@ -5,6 +5,7 @@ metadata:
   namespace: nextcloud-system
   annotations:
     kubernetes.io/ingress.class: nginx-exposed
+    nginx.ingress.kubernetes.io/proxy-body-size: 10000m
 spec:
   rules:
   - host: cloud.heyit.works
@@ -27,6 +28,7 @@ metadata:
   namespace: nextcloud-system
   annotations:
     kubernetes.io/ingress.class: nginx-internal
+    nginx.ingress.kubernetes.io/proxy-body-size: 10000m
 spec:
   rules:
   - host: cloud.home
