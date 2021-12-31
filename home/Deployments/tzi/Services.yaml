@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tzi-svc
+  namespace: tzi-system
+  labels:
+    app: tzi-svc
+spec:
+  ports:
+  - port: 80
+    name: web
+  selector:
+    app: tzi-app
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: tzi-builder-svc
+  namespace: tzi-system
+  labels:
+    app: tzi-builder-svc
+spec:
+  clusterIP: 10.43.100.104
+  ports:
+  - port: 9000
+    name: web
+  selector:
+    app: tzi-builder-app

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: tzi-system
+  name: tzi-config
+data:
+  HUGO_BRANCH: "master"
+  HUGO_REPOSITORY: "git@10.43.100.110:sblake/tzi.git"

@@ -1,0 +1,114 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: tzi-app
+  namespace: tzi-system
+spec:
+  serviceName: tzi-app-svc
+  replicas: 4
+  selector:
+    matchLabels:
+      app: tzi-app
+  template:
+    metadata:
+      labels:
+        app: tzi-app
+    spec:
+      containers:
+        - name: nginx-static-ha
+          image: steffenblake/nginx-static-ha:1.0.4
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: tzi-static-mount
+              mountPath: /static
+              subPath: programs/tzi
+              readOnly: true
+            - name: tzi-timezone-host
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: tzi-localtime-host
+              mountPath: /etc/localtime
+              readOnly: true
+      volumes:
+      - name: tzi-static-mount
+        persistentVolumeClaim:
+          claimName: tzi-static-pvc
+      - name: tzi-timezone-host
+        hostPath:
+          path: /etc/timezone
+          type: File
+      - name: tzi-localtime-host
+        hostPath:
+          path: /etc/localtime
+          type: File
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: tzi-builder-app
+  namespace: tzi-system
+spec:
+  serviceName: tzi-builder-app-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tzi-builder-app
+  template:
+    metadata:
+      labels:
+        app: tzi-builder-app
+    spec:
+      containers:
+        - name: webhook-hugo
+          image: steffenblake/webhook-hugo:1.0.18
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - name: tzi-www-mount
+              mountPath: /www
+              subPath: programs/tzi
+            - name: after-deploy-volume
+              mountPath: /after-deploy.sh
+              subPath: after-deploy.sh
+              readOnly: true
+            - name: gogs-ssh-volume
+              mountPath: /home/webhook/.ssh
+              subPath: programs/gogs/webhook-tzi
+            - name: tzi-timezone-host
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: tzi-localtime-host
+              mountPath: /etc/localtime
+              readOnly: true
+          env:
+            - name: HUGO_KUBECTL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: tzi-sa-secret
+                  key: token
+          envFrom:
+            - secretRef:
+                name: tzi-secrets
+            - configMapRef:
+                name: tzi-config
+      volumes:
+      - name: tzi-www-mount
+        persistentVolumeClaim:
+          claimName: tzi-www-pvc
+      - name: after-deploy-volume
+        configMap:
+          name: tzi-after-deploy-config
+      - name: gogs-ssh-volume
+        persistentVolumeClaim:
+          claimName: tzi-gogs-ssh-pvc
+      - name: tzi-timezone-host
+        hostPath:
+          path: /etc/timezone
+          type: File
+      - name: tzi-localtime-host
+        hostPath:
+          path: /etc/localtime
+          type: File
