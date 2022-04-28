@@ -1,0 +1,149 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  namespace: default
+  name: clean-logs-job-minako
+spec:
+  schedule: "0 1 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            kubernetes.io/hostname: minako
+          containers:
+          - name: log-cleaner
+            image: busybox:1.35
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - tail -n 500 /tmp/k3s-service.log | tee /tmp/k3s-service.log
+            volumeMounts:
+            - name: minako-k3s-service-log
+              mountPath: /tmp/k3s-service.log
+            securityContext:
+              privileged: true
+              runAsUser: 0
+              capabilities:
+                drop: ["ALL"]
+          restartPolicy: OnFailure
+          volumes:
+          - name: minako-k3s-service-log
+            hostPath: # Mount the host logfile
+              path: /var/log/k3s-service.log
+              type: File
+
+---
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  namespace: default
+  name: clean-logs-job-usagi
+spec:
+  schedule: "0 2 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            kubernetes.io/hostname: usagi
+          containers:
+          - name: log-cleaner
+            image: busybox:1.35
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - tail -n 500 /tmp/k3s-service.log | tee /tmp/k3s-service.log
+            volumeMounts:
+            - name: usagi-k3s-service-log
+              mountPath: /tmp/k3s-service.log
+            securityContext:
+              privileged: true
+              runAsUser: 0
+              capabilities:
+                drop: ["ALL"]
+          restartPolicy: OnFailure
+          volumes:
+          - name: usagi-k3s-service-log
+            hostPath: # Mount the host logfile
+              path: /var/log/k3s-service.log
+              type: File
+
+---
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  namespace: default
+  name: clean-logs-job-makoto
+spec:
+  schedule: "0 3 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            kubernetes.io/hostname: makoto
+          containers:
+          - name: log-cleaner
+            image: busybox:1.35
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - tail -n 500 /tmp/k3s-service.log | tee /tmp/k3s-service.log
+            volumeMounts:
+            - name: makoto-k3s-service-log
+              mountPath: /tmp/k3s-service.log
+            securityContext:
+              privileged: true
+              runAsUser: 0
+              capabilities:
+                drop: ["ALL"]
+          restartPolicy: OnFailure
+          volumes:
+          - name: makoto-k3s-service-log
+            hostPath: # Mount the host logfile
+              path: /var/log/k3s-service.log
+              type: File
+
+---
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  namespace: default
+  name: clean-logs-job-rei
+spec:
+  schedule: "0 4 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            kubernetes.io/hostname: rei
+          containers:
+          - name: log-cleaner
+            image: busybox:1.35
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - tail -n 500 /tmp/k3s-service.log | tee /tmp/k3s-service.log
+            volumeMounts:
+            - name: rei-k3s-service-log
+              mountPath: /tmp/k3s-service.log
+            securityContext:
+              privileged: true
+              runAsUser: 0
+              capabilities:
+                drop: ["ALL"]
+          restartPolicy: OnFailure
+          volumes:
+          - name: rei-k3s-service-log
+            hostPath: # Mount the host logfile
+              path: /var/log/k3s-service.log
+              type: File
