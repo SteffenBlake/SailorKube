@@ -31,9 +31,9 @@ spec:
               readOnly: true
             envFrom:
             - secretRef:
-                name: blog-ni-prev-secrets
+                name: blog-ni-prev-build-secrets
             - configMapRef:
-                name: blog-ni-prev-config
+                name: blog-ni-prev-build-config
           restartPolicy: OnFailure
           volumes:
           - name: blog-ni-prev-timezone-host
