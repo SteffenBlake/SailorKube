@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kavita-app
+  namespace: kavita-system
+spec:
+  serviceName: kavita-app-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kavita-app
+  template:
+    metadata:
+      labels:
+        app: kavita-app
+    spec:
+      containers:
+        - name: kavita
+          image: kizaing/kavita:latest
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: kavita-config-pvc
+              mountPath: /kavita/config
+              subPath: programs/kavita/config
+            - name: kavita-library-pvc
+              mountPath: /library
+              subPath: NAS
+          envFrom:
+            - configMapRef:
+                name: kavita-config
+      volumes:
+      - name: kavita-config-pvc
+        persistentVolumeClaim:
+          claimName: kavita-config-pvc
+      - name: kavita-library-pvc
+        persistentVolumeClaim:
+          claimName: kavita-library-pvc

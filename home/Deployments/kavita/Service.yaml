@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kavita-svc
+  namespace: kavita-system
+spec:
+  selector:
+    app: kavita-app
+  ports:
+    - port: 5000
