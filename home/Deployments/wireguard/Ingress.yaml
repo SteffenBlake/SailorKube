@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wireguard-ingress
+  namespace: wireguard-system
+  annotations:
+    kubernetes.io/ingress.class: nginx-exposed
+spec:
+  rules:
+  - host: vpn.heyit.works
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: wireguard-svc
+            port:
+              number: 51820
