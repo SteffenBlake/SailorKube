@@ -5,7 +5,7 @@ metadata:
   namespace: cerberus-system
 subsets:
 - addresses:
-  - ip: 192.168.0.4
+  - ip: 192.168.200.4
   ports:
   - name: app
     port: 8080

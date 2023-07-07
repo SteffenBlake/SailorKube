@@ -7,7 +7,7 @@ data:
   after-deploy.sh: |
     #!/bin/ash
 
-    curl -L -X PATCH 'https://192.168.0.6:6443/apis/apps/v1/namespaces/blog-ni-prev-system/statefulsets/blog-ni-prev-app?fieldManager=kubectl-rollout&pretty=true' \
+    curl -L -X PATCH 'https://192.168.200.6:6443/apis/apps/v1/namespaces/blog-ni-prev-system/statefulsets/blog-ni-prev-app?fieldManager=kubectl-rollout&pretty=true' \
     -H 'Content-Type: application/strategic-merge-patch+json' \
     -H "Authorization: Bearer $HUGO_KUBECTL_TOKEN" \
     --insecure \
