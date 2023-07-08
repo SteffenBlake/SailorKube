@@ -4,7 +4,7 @@ metadata:
   name: tzi-ingress
   namespace: tzi-system
   annotations:
-    kubernetes.io/ingress.class: nginx-exposed
+    kubernetes.io/ingress.class: nginx-external
 spec:
   rules:
   - host: tzi.technically.fun

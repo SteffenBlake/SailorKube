@@ -4,7 +4,7 @@ metadata:
   name: blog-tf-ingress
   namespace: blog-tf-system
   annotations:
-    kubernetes.io/ingress.class: nginx-exposed
+    kubernetes.io/ingress.class: nginx-external
 spec:
   rules:
   - host: blog.technically.fun
