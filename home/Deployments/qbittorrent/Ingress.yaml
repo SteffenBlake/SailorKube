@@ -3,9 +3,8 @@ kind: Ingress
 metadata:
   name: qbittorrent-ingress
   namespace: qbittorrent-system
-  annotations:
-    kubernetes.io/ingress.class: nginx-internal
 spec:
+  ingressClassName: nginx-internal
   rules:
   - host: tor.home
     http:

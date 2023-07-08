@@ -3,9 +3,8 @@ kind: Ingress
 metadata:
   name: wireguard-ingress
   namespace: wireguard-system
-  annotations:
-    kubernetes.io/ingress.class: nginx-external
 spec:
+  ingressClassName: nginx-external
   rules:
   - host: vpn.heyit.works
     http:

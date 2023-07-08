@@ -3,9 +3,8 @@ kind: Ingress
 metadata:
   name: vaultwarden-ingress
   namespace: vaultwarden-system
-  annotations:
-    kubernetes.io/ingress.class: nginx-external
 spec:
+  ingressClassName: nginx-external
   rules:
   - host: pass.heyit.works
     http:
@@ -25,9 +24,8 @@ kind: Ingress
 metadata:
   name: vaultwarden-ingress-internal
   namespace: vaultwarden-system
-  annotations:
-    kubernetes.io/ingress.class: nginx-internal
 spec:
+  ingressClassName: nginx-internal
   rules:
   - host: pass.home
     http:

@@ -4,7 +4,6 @@ metadata:
   name: octoprint-ingress
   namespace: octoprint-system
   annotations:
-    kubernetes.io/ingress.class: nginx-external
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-body-size: 100m
@@ -20,6 +19,7 @@ metadata:
         proxy_cache_bypass $http_upgrade;
       }
 spec:
+  ingressClassName: nginx-external
   rules:
   - host: octoprint.heyit.works
     http:
@@ -40,7 +40,6 @@ metadata:
   name: octoprint-ingress-internal
   namespace: octoprint-system
   annotations:
-    kubernetes.io/ingress.class: nginx-internal
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-body-size: 100m
@@ -56,6 +55,7 @@ metadata:
         proxy_cache_bypass $http_upgrade;
       }
 spec:
+  ingressClassName: nginx-internal
   rules:
   - host: octoprint.home
     http:

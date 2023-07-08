@@ -4,9 +4,9 @@ metadata:
   name: gogs-ingress
   namespace: gogs-system
   annotations:
-    kubernetes.io/ingress.class: nginx-external
     nginx.ingress.kubernetes.io/proxy-body-size: 100m
 spec:
+  ingressClassName: nginx-external
   rules:
   - host: repo.technically.fun
     http:

@@ -3,9 +3,8 @@ kind: Ingress
 metadata:
   name: plex-ingress
   namespace: plex-system
-  annotations:
-    kubernetes.io/ingress.class: nginx-internal
 spec:
+  ingressClassName: nginx-internal
   rules:
   - host: plex.home
     http:

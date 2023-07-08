@@ -436,15 +436,14 @@ spec:
       containers:
       - args:
         - /nginx-ingress-controller
-        - --publish-service=$(POD_NAMESPACE)/ingress-nginx-controller
-        - --election-id=ingress-controller-leader
-        - --controller-class=k8s.io/ingress-nginx
-        - --ingress-class=nginx
+        - --publish-service=$(POD_NAMESPACE)/ingress-nginx-controller-internal
+        - --election-id=ingress-controller-internal
+        - --controller-class=k8s.io/ingress-nginx-internal
         - --configmap=$(POD_NAMESPACE)/ingress-nginx-controller
         - --validating-webhook=:8443
         - --validating-webhook-certificate=/usr/local/certificates/cert
         - --validating-webhook-key=/usr/local/certificates/key
-        - --ingress-class=nginx-internal
+        - --ingress-class=k8s.io/nginx-internal
         env:
         - name: POD_NAME
           valueFrom:
@@ -552,15 +551,14 @@ spec:
       containers:
       - args:
         - /nginx-ingress-controller
-        - --publish-service=$(POD_NAMESPACE)/ingress-nginx-controller
-        - --election-id=ingress-controller-leader
-        - --controller-class=k8s.io/ingress-nginx
-        - --ingress-class=nginx
+        - --publish-service=$(POD_NAMESPACE)/ingress-nginx-controller-external
+        - --election-id=ingress-controller-external
+        - --controller-class=k8s.io/ingress-nginx-external
         - --configmap=$(POD_NAMESPACE)/ingress-nginx-controller
         - --validating-webhook=:8443
         - --validating-webhook-certificate=/usr/local/certificates/cert
         - --validating-webhook-key=/usr/local/certificates/key
-        - --ingress-class=nginx-external
+        - --ingress-class=k8s.io/nginx-external
         env:
         - name: POD_NAME
           valueFrom:
