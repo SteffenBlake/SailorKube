@@ -5,7 +5,7 @@ metadata:
   namespace: blog-tf-system
 spec:
   serviceName: blog-tf-app-svc
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: blog-tf-app
@@ -14,16 +14,9 @@ spec:
       labels:
         app: blog-tf-app
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: usagi
       containers:
         - name: nginx-static-ha
           image: steffenblake/nginx-static-ha:1.0.4
-          securityContext:
-            privileged: true
-            capabilities:
-              add:
-                - SYS_ADMIN
           ports:
             - containerPort: 80
           volumeMounts:
