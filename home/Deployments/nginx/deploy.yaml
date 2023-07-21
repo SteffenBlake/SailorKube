@@ -93,7 +93,16 @@ rules:
 - apiGroups:
   - ""
   resourceNames:
-  - ingress-controller-leader
+  - ingress-controller-internal
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - update
+- apiGroups:
+  - ""
+  resourceNames:
+  - ingress-controller-external
   resources:
   - configmaps
   verbs:
@@ -438,12 +447,12 @@ spec:
         - /nginx-ingress-controller
         - --publish-service=$(POD_NAMESPACE)/ingress-nginx-controller-internal
         - --election-id=ingress-controller-internal
-        - --controller-class=k8s.io/ingress-nginx-internal
+        - --controller-class=k8s.io/nginx-internal
+        - --ingress-class=k8s.io/nginx-internal
         - --configmap=$(POD_NAMESPACE)/ingress-nginx-controller
         - --validating-webhook=:8443
         - --validating-webhook-certificate=/usr/local/certificates/cert
         - --validating-webhook-key=/usr/local/certificates/key
-        - --ingress-class=k8s.io/nginx-internal
         env:
         - name: POD_NAME
           valueFrom:
@@ -553,12 +562,12 @@ spec:
         - /nginx-ingress-controller
         - --publish-service=$(POD_NAMESPACE)/ingress-nginx-controller-external
         - --election-id=ingress-controller-external
-        - --controller-class=k8s.io/ingress-nginx-external
+        - --controller-class=k8s.io/nginx-external
+        - --ingress-class=k8s.io/nginx-external
         - --configmap=$(POD_NAMESPACE)/ingress-nginx-controller
         - --validating-webhook=:8443
         - --validating-webhook-certificate=/usr/local/certificates/cert
         - --validating-webhook-key=/usr/local/certificates/key
-        - --ingress-class=k8s.io/nginx-external
         env:
         - name: POD_NAME
           valueFrom:
@@ -742,7 +751,7 @@ metadata:
     exposure: internal
   name: nginx-internal
 spec:
-  controller: k8s.io/ingress-nginx
+  controller: k8s.io/nginx-internal
 ---
 apiVersion: networking.k8s.io/v1
 kind: IngressClass
@@ -756,7 +765,7 @@ metadata:
     exposure: external
   name: nginx-external
 spec:
-  controller: k8s.io/ingress-nginx
+  controller: k8s.io/nginx-external
 ---
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
