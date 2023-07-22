@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: shinobi-app
+  namespace: shinobi-system
+spec:
+  serviceName: shinobi-app-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shinobi-app
+  template:
+    metadata:
+      labels:
+        app: shinobi-app
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: usagi
+      containers:
+        - name: shinobi
+          image: thtmnisamnstr/shinobi:nodb-20230202
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: shinobi-streams
+              mountPath: /dev/shm/Shinobi/streams
+            - name: shinobi-config-pvc
+              mountPath: /config
+              subPath: programs/shinobi/config
+            - name: shinobi-custom-auto-load-pvc
+              mountPath: /home/Shinobi/libs/customAutoLoad
+              subPath: programs/shinobi/customAutoLoad
+            - name: shinobi-videos-front-pvc
+              mountPath: /FrontCam
+              subPath: NAS/Security/FrontCam
+            - name: shinobi-videos-side-pvc
+              mountPath: /SideCam
+              subPath: NAS/Security/SideCam
+            - name: shinobi-videos-back-pvc
+              mountPath: /BackCam
+              subPath: NAS/Security/BackCam
+            - name: shinobi-videos-ferrets-pvc
+              mountPath: /FerretCam
+              subPath: NAS/Security/FerretCam
+            - name: shinobi-plugins-pvc
+              mountPath: /home/Shinobi/plugins
+              subPath: programs/shinobi/plugins
+            - name: shinobi-localtime-host
+              mountPath: /etc/localtime
+              readOnly: true
+          envFrom:
+            - secretRef:
+                name: shinobi-secrets
+            - configMapRef:
+                name: shinobi-config
+      volumes:
+      - name: shinobi-streams
+        emptyDir:
+          medium: Memory
+          sizeLimit: 2Gi
+      - name: shinobi-config-pvc
+        persistentVolumeClaim:
+          claimName: shinobi-config-pvc
+      - name: shinobi-custom-auto-load-pvc
+        persistentVolumeClaim:
+          claimName: shinobi-custom-auto-load-pvc
+      - name: shinobi-videos-front-pvc
+        persistentVolumeClaim:
+          claimName: shinobi-videos-front-pvc
+      - name: shinobi-videos-side-pvc
+        persistentVolumeClaim:
+          claimName: shinobi-videos-side-pvc
+      - name: shinobi-videos-back-pvc
+        persistentVolumeClaim:
+          claimName: shinobi-videos-back-pvc
+      - name: shinobi-videos-ferrets-pvc
+        persistentVolumeClaim:
+          claimName: shinobi-videos-ferrets-pvc
+      - name: shinobi-plugins-pvc
+        persistentVolumeClaim:
+          claimName: shinobi-plugins-pvc
+      - name: shinobi-localtime-host
+        hostPath:
+          path: /etc/localtime
+          type: File

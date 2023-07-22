@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shinobi-ingress
+  namespace: shinobi-system
+spec:
+  ingressClassName: nginx-internal
+  rules:
+  - host: security.home
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: shinobi-svc
+            port:
+              number: 8080
