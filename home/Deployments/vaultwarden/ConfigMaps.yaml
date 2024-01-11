@@ -5,7 +5,7 @@ metadata:
   name: vaultwarden-config
 data:
   SIGNUPS_ALLOWED: "false"
-  DOMAIN: "https://pass.heyit.works"
+  DOMAIN: "https://pass.home"
   SMTP_HOST: "smtp.mailgun.org"
   SMTP_FROM: "no-reply@pass.heyit.works"
   SMTP_PORT: "587"

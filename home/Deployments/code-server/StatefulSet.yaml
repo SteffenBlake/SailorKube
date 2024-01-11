@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: code-server-app
+  namespace: code-server-system
+spec:
+  serviceName: code-server-app-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: code-server-app
+  template:
+    metadata:
+      labels:
+        app: code-server-app
+    spec:
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "1"
+      containers:
+        - name: code-server
+          image: code-serverinc/pms-docker:1.24.1.4931-1a38e63c6
+          ports:
+            - containerPort: 32400
+          volumeMounts:
+            - name: code-server-config-pvc
+              mountPath: /config
+              subPath: programs/code-server/config
+            - name: code-server-transcode-pvc
+              mountPath: /transcode
+              subPath: programs/code-server/transcode
+            - name: code-server-data-pvc
+              mountPath: /data
+              subPath: programs/code-server/data
+            - name: code-server-library-pvc
+              mountPath: /library
+              subPath: NAS
+          envFrom:
+            - secretRef:
+                name: code-server-secrets
+            - configMapRef:
+                name: code-server-config
+      volumes:
+      - name: code-server-config-pvc
+        persistentVolumeClaim:
+          claimName: code-server-config-pvc
+      - name: code-server-transcode-pvc
+        persistentVolumeClaim:
+          claimName: code-server-transcode-pvc
+      - name: code-server-data-pvc
+        persistentVolumeClaim:
+          claimName: code-server-data-pvc
+      - name: code-server-library-pvc
+        persistentVolumeClaim:
+          claimName: code-server-library-pvc

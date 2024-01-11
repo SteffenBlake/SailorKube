@@ -1,8 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: plex-system
-  name: plex-config
+  namespace: code-server-system
+  name: code-server-config
 data:
-  TZ: "Canada/Mountain"
-  ADVERTISE_IP: "http://plex.home"
+  TZ: "Canada/Mountain

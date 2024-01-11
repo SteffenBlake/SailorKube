@@ -19,6 +19,9 @@ spec:
       containers:
         - name: shinobi
           image: thtmnisamnstr/shinobi:nodb-20230202
+          resources:
+            limits:
+              memory: 4Gi
           ports:
             - containerPort: 8080
           volumeMounts:
