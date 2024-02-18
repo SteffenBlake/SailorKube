@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: frigate-system
+  name: frigate-config
+data:
+  FRIGATE_RTSP_PASSWORD: "password"

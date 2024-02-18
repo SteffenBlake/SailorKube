@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: frigate-app
+  namespace: frigate-system
+
+spec:
+  serviceName: frigate-app-service
+  selector:
+    matchLabels:
+      app: frigate-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: frigate-app
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: usagi
+      containers:
+        - name: frigate
+          image: ghcr.io/blakeblackshear/frigate:stable
+          resources:
+            limits:
+              memory: 4Gi
+          ports:
+            - containerPort: 5000
+              name: web
+              protocol: TCP
+            - containerPort: 8554
+              name: rtsp-feeds
+              protocol: TCP
+            - containerPort: 8555
+              name: webrtc-tcp
+              protocol: TCP
+            - containerPort: 8555
+              name: webrtc-udp
+              protocol: UDP
+          volumeMounts:
+            - name: frigate-config-mount
+              mountPath: /config
+              subPath: programs/frigate
+            - name: frigate-storage-mount
+              mountPath: /media/frigate
+              subPath: NAS/Security
+            - name: shinobi-localtime-host
+              mountPath: /etc/localtime
+              readOnly: true
+          envFrom:
+            - configMapRef:
+                name: frigate-config
+      volumes:
+      - name: frigate-config-mount
+        persistentVolumeClaim:
+          claimName: frigate-config-pvc
+      - name: frigate-storage-mount
+        persistentVolumeClaim:
+          claimName: frigate-storage-pvc
