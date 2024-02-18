@@ -11,7 +11,7 @@ spec:
       name: web
       protocol: TCP
     - port: 8554
-      name: RTSP-feeds
+      name: rtsp-feeds
       protocol: TCP
     - port: 8555
       name: webrtc-tcp
