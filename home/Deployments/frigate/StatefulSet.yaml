@@ -43,7 +43,7 @@ spec:
             - name: frigate-storage-mount
               mountPath: /media/frigate
               subPath: NAS/Security
-            - name: shinobi-localtime-host
+            - name: frigate-localtime-host
               mountPath: /etc/localtime
               readOnly: true
           envFrom:
