@@ -3,6 +3,10 @@ kind: Ingress
 metadata:
   name: frigate-ingress
   namespace: frigate-system
+  annotations:
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: frigate-auth
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
 spec:
   ingressClassName: nginx-internal
   rules:
