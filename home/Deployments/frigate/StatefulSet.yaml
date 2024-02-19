@@ -37,6 +37,8 @@ spec:
               name: webrtc-udp
               protocol: UDP
           volumeMounts:
+            - name: frigate-shm
+              mountPath: /dev/shm
             - name: frigate-config-mount
               mountPath: /config
               subPath: programs/frigate
@@ -50,6 +52,10 @@ spec:
             - configMapRef:
                 name: frigate-config
       volumes:
+      - name: frigate-shm
+        emptyDir:
+          medium: Memory
+          sizeLimit: 2Gi
       - name: frigate-config-mount
         persistentVolumeClaim:
           claimName: frigate-config-pvc
