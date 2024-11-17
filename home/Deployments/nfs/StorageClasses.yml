@@ -2,20 +2,16 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: nfs-hot-storage
-provisioner: k8s-sigs.io/nfs-subdir-external-provisioner 
+provisioner: k8s-sigs.io/nfs-subdir-external-provisioner-hot 
 parameters:
-  pathPattern: "hot/${.PVC.annotations.nfs.io/storage-path}"
-  server: fileshare
-  path: /mnt/hot
+  pathPattern: "/"
 reclaimPolicy: Retain
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: nfs-cold-storage
-provisioner: k8s-sigs.io/nfs-subdir-external-provisioner 
+provisioner: k8s-sigs.io/nfs-subdir-external-provisioner-cold
 parameters:
-  pathPattern: "cold/${.PVC.annotations.nfs.io/storage-path}"
-  server: fileshare
-  path: /mnt/cold
+  pathPattern: "/"
 reclaimPolicy: Retain

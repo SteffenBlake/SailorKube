@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nfs-client-provisioner
+  name: nfs-client-provisioner-hot
   labels:
-    app: nfs-client-provisioner
+    app: nfs-client-provisioner-hot
   namespace: default
 spec:
   replicas: 1
@@ -11,22 +11,61 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: nfs-client-provisioner
+      app: nfs-client-provisioner-hot
   template:
     metadata:
       labels:
-        app: nfs-client-provisioner
+        app: nfs-client-provisioner-hot
     spec:
-      serviceAccountName: nfs-client-provisioner
+      serviceAccountName: nfs-client-provisioner-hot
       containers:
-        - name: nfs-client-provisioner
+        - name: nfs-client-provisioner-hot
           image: registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
           volumeMounts:
             - name: nfs-client-root
               mountPath: /persistentvolumes
           env:
             - name: PROVISIONER_NAME
-              value: k8s-sigs.io/nfs-subdir-external-provisioner
+              value: k8s-sigs.io/nfs-subdir-external-provisioner-hot
+            - name: NFS_SERVER
+              value: fileshare
+            - name: NFS_PATH
+              value: /mnt
+      volumes:
+        - name: nfs-client-root
+          nfs:
+            server: fileshare
+            path: /mnt
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfs-client-provisioner-cold
+  labels:
+    app: nfs-client-provisioner-cold
+  namespace: default
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: nfs-client-provisioner-cold
+  template:
+    metadata:
+      labels:
+        app: nfs-client-provisioner-cold
+    spec:
+      serviceAccountName: nfs-client-provisioner-cold
+      containers:
+        - name: nfs-client-provisioner-cold
+          image: registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
+          volumeMounts:
+            - name: nfs-client-root
+              mountPath: /persistentvolumes
+          env:
+            - name: PROVISIONER_NAME
+              value: k8s-sigs.io/nfs-subdir-external-provisioner-cold
             - name: NFS_SERVER
               value: fileshare
             - name: NFS_PATH
