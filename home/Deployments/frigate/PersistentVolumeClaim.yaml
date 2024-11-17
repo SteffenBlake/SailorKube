@@ -6,6 +6,7 @@ metadata:
   labels:
     app: frigate-app
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadWriteMany
   resources:
@@ -22,6 +23,7 @@ metadata:
   name: frigate-storage-pvc
   namespace: frigate-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadWriteMany
   resources:

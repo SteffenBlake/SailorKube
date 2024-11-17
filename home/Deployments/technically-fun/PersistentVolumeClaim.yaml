@@ -6,6 +6,7 @@ metadata:
   name: technically-fun-pvc
   namespace: technically-fun-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadOnlyMany
   resources:

@@ -6,6 +6,7 @@ metadata:
   name: vaultwarden-pvc
   namespace: vaultwarden-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadWriteMany
   resources:

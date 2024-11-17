@@ -6,6 +6,7 @@ metadata:
   name: nextcloud-web-pvc
   namespace: nextcloud-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadWriteMany
   resources:

@@ -1,0 +1,19 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-hot-sc
+provisioner: nfs-provisioner
+parameters:
+  server: fileshare
+  path: /mnt/hot
+reclaimPolicy: Retain
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-cold-sc
+provisioner: nfs-provisioner
+parameters:
+  server: fileshare
+  path: /mnt/cold
+reclaimPolicy: Retain

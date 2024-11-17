@@ -6,6 +6,7 @@ metadata:
   name: blog-tf-static-pvc
   namespace: blog-tf-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadOnlyMany
   resources:
@@ -22,6 +23,7 @@ metadata:
   name: blog-tf-www-pvc
   namespace: blog-tf-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadOnlyMany
   resources:
@@ -38,6 +40,7 @@ metadata:
   name: blog-tf-gogs-ssh-pvc
   namespace: blog-tf-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadOnlyMany
   resources:

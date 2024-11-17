@@ -6,6 +6,7 @@ metadata:
   name: blog-ni-static-pvc
   namespace: blog-ni-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadOnlyMany
   resources:
@@ -22,6 +23,7 @@ metadata:
   name: blog-ni-www-pvc
   namespace: blog-ni-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadOnlyMany
   resources:
@@ -38,6 +40,7 @@ metadata:
   name: blog-ni-gogs-ssh-pvc
   namespace: blog-ni-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadOnlyMany
   resources:

@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  namespace: blog-kc-system
-  name: blog-kc-config
-data:
-  HUGO_BRANCH: "main"
-  HUGO_REPOSITORY: "git@10.43.100.110:kgarner/MyBlog.git"

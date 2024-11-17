@@ -6,6 +6,7 @@ metadata:
   name: gogs-data-pvc
   namespace: gogs-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadWriteMany
   resources:

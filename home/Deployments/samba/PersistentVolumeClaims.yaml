@@ -6,6 +6,7 @@ metadata:
   name: samba-pvc
   namespace: samba-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadWriteMany
   resources:

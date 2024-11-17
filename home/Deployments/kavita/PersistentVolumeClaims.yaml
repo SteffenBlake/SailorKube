@@ -6,6 +6,7 @@ metadata:
   name: kavita-config-pvc
   namespace: kavita-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadWriteMany
   resources:
@@ -22,6 +23,7 @@ metadata:
   name: kavita-library-pvc
   namespace: kavita-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadWriteMany
   resources:

@@ -6,6 +6,7 @@ metadata:
   name: tzi-static-pvc
   namespace: tzi-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadOnlyMany
   resources:
@@ -22,6 +23,7 @@ metadata:
   name: tzi-www-pvc
   namespace: tzi-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadOnlyMany
   resources:
@@ -38,6 +40,7 @@ metadata:
   name: tzi-gogs-ssh-pvc
   namespace: tzi-system
 spec:
+  storageClassName: nfs-cold-storage
   accessModes:
     - ReadOnlyMany
   resources:
