@@ -4,6 +4,7 @@ metadata:
   name: nfs-hot-storage
 provisioner: k8s-sigs.io/nfs-subdir-external-provisioner 
 parameters:
+  pathPattern: "hot/${.PVC.annotations.nfs.io/storage-path}"
   server: fileshare
   path: /mnt/hot
 reclaimPolicy: Retain
@@ -14,6 +15,7 @@ metadata:
   name: nfs-cold-storage
 provisioner: k8s-sigs.io/nfs-subdir-external-provisioner 
 parameters:
+  pathPattern: "cold/${.PVC.annotations.nfs.io/storage-path}"
   server: fileshare
   path: /mnt/cold
 reclaimPolicy: Retain
