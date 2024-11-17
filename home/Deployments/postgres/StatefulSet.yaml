@@ -21,7 +21,6 @@ spec:
           volumeMounts:
             - name: postgresql-mount
               mountPath: /data
-              subPath: programs/postgres
           env:
             - name: POSTGRES_USER
               valueFrom:

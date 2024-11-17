@@ -5,6 +5,8 @@ metadata:
   namespace: postgresql-system
   labels:
     app: postgresql-db
+  annotations:
+    nfs.io/storage-path: "programs/postgres"
 spec:
   storageClassName: nfs-hot-storage
   accessModes:
