@@ -30,12 +30,12 @@ spec:
             - name: NFS_SERVER
               value: fileshare
             - name: NFS_PATH
-              value: /mnt
+              value: /mnt/hot
       volumes:
         - name: nfs-client-root
           nfs:
             server: fileshare
-            path: /mnt
+            path: /mnt/hot
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -69,9 +69,9 @@ spec:
             - name: NFS_SERVER
               value: fileshare
             - name: NFS_PATH
-              value: /mnt
+              value: /mnt/cold
       volumes:
         - name: nfs-client-root
           nfs:
             server: fileshare
-            path: /mnt
+            path: /mnt/cold
