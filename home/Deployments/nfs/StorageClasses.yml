@@ -4,7 +4,7 @@ metadata:
   name: nfs-hot-storage
 provisioner: k8s-sigs.io/nfs-subdir-external-provisioner-hot 
 parameters:
-  pathPattern: "/"
+  pathPattern: "${.PVC.annotations.nfs.io/storage-path}"
 reclaimPolicy: Retain
 ---
 apiVersion: storage.k8s.io/v1
@@ -13,5 +13,5 @@ metadata:
   name: nfs-cold-storage
 provisioner: k8s-sigs.io/nfs-subdir-external-provisioner-cold
 parameters:
-  pathPattern: "/"
+  pathPattern: "${.PVC.annotations.nfs.io/storage-path}"
 reclaimPolicy: Retain
