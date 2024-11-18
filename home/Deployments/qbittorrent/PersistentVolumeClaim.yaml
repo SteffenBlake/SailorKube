@@ -5,6 +5,8 @@ metadata:
   namespace: qbittorrent-system
   labels:
     app: qbittorrent-app
+  annotations:
+    nfs.io/storage-path: "programs/qbittorrent"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:
@@ -22,6 +24,8 @@ metadata:
     app: qbittorrent-app
   name: qbittorrent-downloads-pvc
   namespace: qbittorrent-system
+  annotations:
+    nfs.io/storage-path: "Media"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:

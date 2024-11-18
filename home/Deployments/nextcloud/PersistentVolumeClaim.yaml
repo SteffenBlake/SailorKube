@@ -5,6 +5,8 @@ metadata:
     app: nextcloud-app
   name: nextcloud-web-pvc
   namespace: nextcloud-system
+  annotations:
+    nfs.io/storage-path: "programs/nextcloud"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:

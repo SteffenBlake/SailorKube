@@ -24,7 +24,6 @@ spec:
           volumeMounts:
             - name: nextcloud-web-mount
               mountPath: /var/www/html
-              subPath: programs/nextcloud
           envFrom:
             - secretRef:
                 name: nextcloud-secrets

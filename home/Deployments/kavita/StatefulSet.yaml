@@ -22,10 +22,8 @@ spec:
           volumeMounts:
             - name: kavita-config-pvc
               mountPath: /kavita/config
-              subPath: programs/kavita/config
             - name: kavita-library-pvc
               mountPath: /library
-              subPath: NAS
           envFrom:
             - configMapRef:
                 name: kavita-config

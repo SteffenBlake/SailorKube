@@ -25,7 +25,6 @@ spec:
           volumeMounts:
             - name: gogs-data-pvc
               mountPath: /data
-              subPath: programs/gogs
             - name: gogs-timezone-host
               mountPath: /etc/timezone
               readOnly: true

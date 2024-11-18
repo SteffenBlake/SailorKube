@@ -22,7 +22,6 @@ spec:
           volumeMounts:
             - name: vaultwarden-mount
               mountPath: /data
-              subPath: programs/vaultwarden
             - name: vaultwarden-timezone-host
               mountPath: /etc/timezone
               readOnly: true

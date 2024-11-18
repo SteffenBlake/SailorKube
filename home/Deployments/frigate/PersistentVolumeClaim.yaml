@@ -5,6 +5,8 @@ metadata:
   namespace: frigate-system
   labels:
     app: frigate-app
+  annotations:
+    nfs.io/storage-path: "programs/frigate"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:
@@ -22,6 +24,8 @@ metadata:
     app: frigate-app
   name: frigate-storage-pvc
   namespace: frigate-system
+  annotations:
+    nfs.io/storage-path: "security-footage"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:

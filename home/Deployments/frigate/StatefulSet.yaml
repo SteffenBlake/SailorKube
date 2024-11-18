@@ -41,10 +41,8 @@ spec:
               mountPath: /dev/shm
             - name: frigate-config-mount
               mountPath: /config
-              subPath: programs/frigate
             - name: frigate-storage-mount
               mountPath: /media/frigate
-              subPath: NAS/Security
             - name: frigate-localtime-host
               mountPath: /etc/localtime
               readOnly: true

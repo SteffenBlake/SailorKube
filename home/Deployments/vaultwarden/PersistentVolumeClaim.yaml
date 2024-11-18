@@ -5,6 +5,8 @@ metadata:
     app: vaultwarden-app
   name: vaultwarden-pvc
   namespace: vaultwarden-system
+  annotations:
+    nfs.io/storage-path: "programs/vaultwarden"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:

@@ -22,7 +22,6 @@ spec:
           volumeMounts:
             - name: blog-tf-static-mount
               mountPath: /static
-              subPath: programs/blog-tf
               readOnly: true
             - name: blog-tf-timezone-host
               mountPath: /etc/timezone
@@ -69,14 +68,12 @@ spec:
           volumeMounts:
             - name: blog-tf-www-mount
               mountPath: /www
-              subPath: programs/blog-tf
             - name: after-deploy-volume
               mountPath: /after-deploy.sh
               subPath: after-deploy.sh
               readOnly: true
             - name: gogs-ssh-volume
               mountPath: /home/webhook/.ssh
-              subPath: programs/gogs/webhook-blog-tf
             - name: blog-tf-timezone-host
               mountPath: /etc/timezone
               readOnly: true

@@ -31,10 +31,8 @@ spec:
           volumeMounts:
             - name: qbittorrent-config-mount
               mountPath: /config
-              subPath: programs/qbittorrent
             - name: qbittorrent-downloads-mount
               mountPath: /downloads
-              subPath: NAS
           envFrom:
             - configMapRef:
                 name: qbittorrent-config

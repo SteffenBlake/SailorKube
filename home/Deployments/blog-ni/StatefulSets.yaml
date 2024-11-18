@@ -22,7 +22,6 @@ spec:
           volumeMounts:
             - name: blog-ni-static-mount
               mountPath: /static
-              subPath: programs/blog-ni
               readOnly: true
             - name: blog-ni-timezone-host
               mountPath: /etc/timezone
@@ -69,14 +68,12 @@ spec:
           volumeMounts:
             - name: blog-ni-www-mount
               mountPath: /www
-              subPath: programs/blog-ni
             - name: after-deploy-volume
               mountPath: /after-deploy.sh
-              subPath: after-deploy.sh
               readOnly: true
+              subPath: after-deploy.sh
             - name: gogs-ssh-volume
               mountPath: /home/webhook/.ssh
-              subPath: programs/gogs/webhook-blog-ni
             - name: blog-ni-timezone-host
               mountPath: /etc/timezone
               readOnly: true

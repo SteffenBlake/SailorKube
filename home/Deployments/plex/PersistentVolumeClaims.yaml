@@ -5,6 +5,8 @@ metadata:
     app: plex-app
   name: plex-config-pvc
   namespace: plex-system
+  annotations:
+    nfs.io/storage-path: "programs/plex/config"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:
@@ -22,8 +24,10 @@ metadata:
     app: plex-app
   name: plex-transcode-pvc
   namespace: plex-system
+  annotations:
+    nfs.io/storage-path: "programs/plex/transcode"
 spec:
-  storageClassName: nfs-cold-storage
+  storageClassName: nfs-hot-storage
   accessModes:
     - ReadWriteMany
   resources:
@@ -38,6 +42,8 @@ metadata:
     app: plex-app
   name: plex-data-pvc
   namespace: plex-system
+  annotations:
+    nfs.io/storage-path: "programs/plex/data"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:
@@ -55,6 +61,8 @@ metadata:
     app: plex-app
   name: plex-library-pvc
   namespace: plex-system
+  annotations:
+    nfs.io/storage-path: "media"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:

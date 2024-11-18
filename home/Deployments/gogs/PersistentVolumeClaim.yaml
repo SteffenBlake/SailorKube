@@ -5,6 +5,8 @@ metadata:
     app: gogs-app
   name: gogs-data-pvc
   namespace: gogs-system
+  annotations:
+    nfs.io/storage-path: "programs/gogs/data"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:

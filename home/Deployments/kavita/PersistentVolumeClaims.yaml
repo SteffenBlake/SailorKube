@@ -5,6 +5,8 @@ metadata:
     app: kavita-app
   name: kavita-config-pvc
   namespace: kavita-system
+  annotations:
+    nfs.io/storage-path: "programs/kavita"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:
@@ -22,6 +24,8 @@ metadata:
     app: kavita-app
   name: kavita-library-pvc
   namespace: kavita-system
+  annotations:
+    nfs.io/storage-path: "media"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:

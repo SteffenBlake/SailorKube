@@ -5,7 +5,7 @@ metadata:
   namespace: technically-fun-system
 spec:
   serviceName: technically-fun-app-svc
-  replicas: 4
+  replicas: 2
   selector:
     matchLabels:
       app: technically-fun-app
@@ -22,7 +22,6 @@ spec:
           volumeMounts:
             - name: technically-fun-mount
               mountPath: /static
-              subPath: programs/technically-fun
               readOnly: true
             - name: technically-fun-timezone-host
               mountPath: /etc/timezone

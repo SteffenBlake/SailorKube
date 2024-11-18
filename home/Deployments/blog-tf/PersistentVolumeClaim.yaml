@@ -5,6 +5,8 @@ metadata:
     app: blog-tf-app
   name: blog-tf-static-pvc
   namespace: blog-tf-system
+  annotations:
+    nfs.io/storage-path: "programs/blog-tf"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:
@@ -22,6 +24,8 @@ metadata:
     app: blog-tf-app
   name: blog-tf-www-pvc
   namespace: blog-tf-system
+  annotations:
+    nfs.io/storage-path: "programs/blog-tf"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:
@@ -39,6 +43,8 @@ metadata:
     app: blog-tf-app
   name: blog-tf-gogs-ssh-pvc
   namespace: blog-tf-system
+  annotations:
+    nfs.io/storage-path: "programs/gogs/webhook-blog-tf"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:

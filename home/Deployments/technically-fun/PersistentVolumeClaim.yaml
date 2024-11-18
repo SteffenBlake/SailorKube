@@ -5,6 +5,8 @@ metadata:
     app: technically-fun-app
   name: technically-fun-pvc
   namespace: technically-fun-system
+  annotations:
+    nfs.io/storage-path: "programs/technically-fun"
 spec:
   storageClassName: nfs-cold-storage
   accessModes:
