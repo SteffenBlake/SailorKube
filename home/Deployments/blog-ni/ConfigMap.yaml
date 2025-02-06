@@ -5,5 +5,5 @@ metadata:
   name: blog-ni-config
 data:
   HUGO_BRANCH: "master"
-  HUGO_REPOSITORY: "git@10.43.100.110:sblake/Nightmares.git"
+  HUGO_REPOSITORY: "https://repo.technically.fun/sblake/Nightmares.git"
   HUGO_ARGS: "-F --baseURL https://nightmares.technically.fun/"

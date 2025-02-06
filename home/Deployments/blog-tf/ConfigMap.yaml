@@ -5,4 +5,4 @@ metadata:
   name: blog-tf-config
 data:
   HUGO_BRANCH: "master"
-  HUGO_REPOSITORY: "git@10.43.100.110:sblake/Blog.git"
+  HUGO_REPOSITORY: "https://repo.technically.fun/sblake/Blog.git"

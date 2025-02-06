@@ -4,4 +4,4 @@ metadata:
   namespace: code-server-system
   name: code-server-config
 data:
-  TZ: "Canada/Mountain
+  TZ: "Canada/Mountain"
